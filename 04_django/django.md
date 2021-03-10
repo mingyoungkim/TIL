@@ -1,0 +1,258 @@
+# django
+
+## 03월 10일
+
+### django Model
+
+> 정의
+
+- 웹 어플리케이션의 데이터를 구조화하고 조작하기 위한 도구
+
+- 저장된 데이터베이스의 구조 (layout)
+
+- 즉, model을 통해 데이터에 접속하고 관리
+
+  => 데이터베이스와 다름! (model이 더 큰 구조)
+
+
+
+
+✍ Database란?
+
+- 체계화 된 데이터의 모임
+
+- 데이터를 조회하기 위한 명령어 => Query
+
+  조건에 맞는 데이터를 추출하거나 조작하는 명령어
+
+- 기본구조
+
+  - 스키마 (Schema) : 데이터베이스에서 자료의 구조, 표현방법, 관계를 정의한 구조
+
+  - 테이블 (Table) : 데이터베이스는 테이블 형태로 구성 (즉, 데이터 요소들의 집합)
+
+    - 필드 = 컬럼 = 속성 => 열 (고유한 데이터 형식이 지정)
+
+    - 레코드 =  행= 튜플 => 행 (데이터 하나하나가 행으로 저장됨)
+
+    - PK (기본키) : 각 행(레코드)의 고유값 Primary Key => 반드시 설정
+
+      (id로 자동 설정됨)
+
+
+
+> ORM
+
+- Object Relational Mapping (객체와 관계를 매핑하는 기술이다.)
+
+- 객체 지향 프로그래밍 언어(OOP)를 사용하여
+
+- 호환되지 않는 유형의 시스템간에 데이터를 변환하는 기술
+
+  예 : (Django - SQL) => SQL은 데이터베이스에서 사용하는 언어 so, python으로 조작 못함
+
+- model.py에서 사용된 python이라는 OOP언어를 SQL로 해석해서 데이터베이스에 보내줌
+
+  반대로, **DB를 객체로 조작하기 위해 ORM사용**
+
+- 장점
+
+  - SQL을 잘 몰라도 DB조작 가능
+  - SQL의 절차적 접근이 아닌 객체 지향적 접근으로 인한 높은 생산성
+
+- 단점
+
+  - ORM만으로 완전한 서비스 구현 어려운 경우도 있음
+
+  => 그래도 **웹 개발의 속도 (생산성)** 를 높이기 때문에 사용
+
+
+
+> Migrations
+
+- django가 model에 생긴 변화 (필드를 추가 혹은 모델삭제) 를 반영하는 방법
+
+- 명령어
+
+  - **makemigrations**
+
+    - model을 변경한 것에 기반한 새로운 마이그레이션(설계도) 을 만들때 사용
+    - 즉, ORM이 해석할 수 있도록 실제 설계도를 만드는 것
+
+  - **migrate**
+
+    - 각각의 설계도인 마이그레이션을 DB에 반영하기 위해 사용
+
+    - 모델에서의 변경 사항과 DB의 스키마가 동기화를 이룸
+
+      => Model의 class를 DB에 table로 
+
+  - sqlmigrate
+    
+    - 마이그레이션에 대한 SQL구문을 보기 위해 미리 확인 (조회 역할)
+  - showmigrations
+    - 프로젝트 전체의 마이그레이션 상태를 확인하기 위해 사용
+    - 마이그레이션 파일들이 migrate 됐는지 여부 확인 가능
+
+
+
+🍀 반드시 기억 🍀
+
+1) models.py
+
+​	모델 변경사항 발생
+
+2) python manage.py makemigrations
+
+​	마이그레이션 파일 생성
+
+3) python mangae.py migrate
+
+​	 DB적용 (이때, 마이그레이션을 기반으로 실제 table을 작성한다)
+
+
+
+> Database API
+
+- API : 어플리케이션간의 의사소통
+
+- 즉, 데이터베이스를 조작하기 위한 도구
+
+- django가 기본적으로 ORM을 제공함에따른 것으로 DB를 편하게 조작할 수 있게 도움
+
+- Manager
+
+  - django모델에 데이터베이스 query 작업이 제공되는 인터페이스
+
+  - 기본적으로 모든 django 모델 클레스에 자동으로 **objects** 라는 Manager추가
+
+  - 즉, 데이터베이스를 조작하기 위해 메서드(함수)를 사용해야하는데
+
+    이것을 사용하기 위해 중간에 제공되는 인터페이스
+
+- QuerySet
+
+  - 데이터베이스로부터 전달받은 객체 목록
+
+  - 데이터베이스로부터 조회, 필터, 정렬 수행 가능
+
+    => 리스트처럼 조작 가능
+
+
+
+> CRUD
+
+- 대부분의 컴퓨터 소프트웨어가 가지는 기본적인 데이터 처리 기능인
+
+  Creat(생성), Read(읽기=조회), Update(갱신=수정), Delete(삭제)를 묶어 일컫는 말
+
+  - Creat
+
+    - 인스턴스 이름 = 생성한 클래스()
+
+    ```python
+    article = Article()
+    
+    # 각각 내용 넣어주기
+    article.title = 'first'
+    article.content = 'django!'
+    
+    # 저장 => 저장을해야!!!, DB에 기록 됨
+    article.save()
+    ```
+
+    ```python
+    # 인스턴스를 생성하면서 동시에 내용도 넣어주기
+    
+    article = Article(title='second', content='django!!')
+    article.save()
+    ```
+
+    ```python
+    # DB API 문법 써서 생성해보기
+    # 즉, 인스턴스 생성하지 않고 게시글을 작성하는 방법
+    
+    Article.objects.create(title='third', content='django!!!')
+    # => create()가 save()까지 기능해줌
+    ```
+
+    
+
+  - Read
+
+    - 어떻게 원하는 조건으로 잘 가져올것인가!
+
+    - 크게 2가지
+
+      1) Methods that return new querysets 
+
+      ​	새로운 쿼리셋을 주는 메서드 => all(), filter()
+
+      2) Methods that do not return new querysets
+
+      ​	새로운 쿼리셋을 주지 않는 메서드 => get()
+
+    ```python
+    # 1. all()
+    # Article model로 만들어진 table에 모든 데이터를 달라!
+    Article.objects.all()
+    
+    # 2. get()
+    article = Article.objects.get(pk=4)
+    # 객체가 없으면 DoesNotExist 에러 발생
+    # 객체가 여러개일 경우 MutipleObjectsReturned 에러발생
+    # so, unique 혹은 NOT NULL(빈값이면 안됨) 특징을 가지고 있는 경우에만 사용가능
+    # => 즉, PK(id)로 조회가능하다
+    
+    # 3. filter()
+    # 지정된 매개변수와 일치하는 객체를 모두 포함하는 쿼리셋을 줌
+    # 즉, 객체가 여러개일 경우도 사용가능하다.
+    Article.objects.filter(content='django!')
+    ```
+
+    - Field lookups : 조회 시 특정 조건을 적용시키기 위해 사용
+
+      => Query Method(get, filter, exclude)에 대한 키워드 인수로 사용됨
+
+    ```python
+    # '!'포함한 모든 것들 조회
+    Article.objects.filter(content__contains='!')
+    
+    # PK가 1보다 greater than(큰 것) 한 것들만 조회
+    Article.objects.filter(pk__gt=1)
+    ```
+
+    
+
+  - Update
+
+    - 새로운 인스턴스를 생성하는 것이 아니라
+    - 기존의 어떤 인스턴스를 수정할지 만들고
+    - 얘의 값을 수정
+
+    ```python
+    # article이라는 인스턴스에 기존의 pk=1인 것을 가져옴
+    article = Article.objects.get(pk=1)
+    # 그리고 수정
+    article.title = 'byebye'
+    ```
+
+    
+
+  - Delete
+
+    - Update와 동일하게 기존 값 가져와서 삭제
+
+    - 만약 pk=1 을 삭제 후, 새로운 게시글을 작성하면
+
+    - 1을 재사용하지 않고 기존에 있던 마지막 id 다음 숫자값으로 작성됨
+
+      (기존에 id가 5까지 있었으면 6번이 생성됨)
+
+
+
+> Admin site
+
+- 사용자가 아닌 서버의 관리자가 활용하기 위한 페이지
+- Articles class 를 admin.py에 등록하고 관리
+- record 생성 여부 확인에 매우 유용, 직접 record 삽입 가능
