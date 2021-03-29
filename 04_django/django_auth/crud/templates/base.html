@@ -1,0 +1,44 @@
+{% load bootstrap5 %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {% bootstrap_css %}
+  <title>Document</title>
+</head>
+<body>
+  <div class="container">
+    <!--django는 인증시스템에서 이미 request에 user attribute를 제공하고 있다-->
+    <!--login이 잘 된건지 h3를 출력해보자-->
+    <!--login사용자가 아니면 Helloy, AnonymousUser로 받음-->
+    <!--views에서 넘겨주지 않아도 request는 내장되어 있는 애라서 바로 사용 가능-->
+    <h3>Hello, {{ request.user }}</h3>
+
+    <!--로그인과 로그아웃 버튼을 조건에 따라 나타나게 하자-->
+    <!--로그인 했으면 회원정보수정, 로그아웃, 회원탈퇴 버튼 보여줌-->
+    {% if request.user.is_authenticated %}
+      <a href="{% url 'accounts:update' %}">[회원정보 수정]</a> <!--왜 a태그지?????????????????????????/////-->
+      <form action="{% url 'accounts:logout' %}" method="POST">
+        {% csrf_token %}
+        <input type="submit" value="Logout">
+      </form>
+      <form action="{% url 'accounts:delete' %}" method="POST">
+        {% csrf_token %}
+        <input type="submit" value="Signout">      
+      </form>
+
+    {% else %} <!--로그인 안되어 있으면 로그인 버튼 보여줌-->
+      <a href="{% url 'accounts:login' %}">Login</a>
+      <!--비로그인 상태일 때만 회원가입 버튼-->
+      <a href="{% url 'accounts:signup' %}">Signup</a>
+    {% endif %}
+
+    {% block content %}
+    {% endblock %}    
+  </div>
+  {% bootstrap_javascript %}
+</body>
+</html>
