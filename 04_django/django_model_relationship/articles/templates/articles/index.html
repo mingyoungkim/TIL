@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Articles</h1>
+  {% if request.user.is_authenticated %}
+    <a href="{% url 'articles:create' %}">[CREATE]</a>
+  {% else %}
+    <a href="{% url 'accounts:login' %}">[새 글을 작성하려면 로그인하세요.]</a>
+  {% endif %}
+  <hr>
+  {% for article in articles %}
+    <!--이거는 작성자의 프로필로 가야하니까 article.user.username임-->
+    <b>작성자 : <a href="{% url 'accounts:profile' article.user.username %}">{{ article.user }}</a></b>
+    <p>글 번호 : {{ article.pk }}</p>
+    <p>글 제목 : {{ article.title }}</p>
+    <p>글 내용 : {{ article.content }}</p>
+    <!--좋아요 공간-->
+
+      <form action="{% url 'articles:likes' article.pk %}" method="POST">
+        {% csrf_token %}
+        <!--이 버튼은 상황에 따라 바껴야함-->
+        {% if request.user in article.like_users.all %}
+          <!--이모지 : [win + .] -->
+          <button>❤</button>
+        {% else %}
+          <button>🤍</button>
+        {% endif %}
+      </form>
+
+    <p>{{ article.like_users.all|length }}명이 이 글을 좋아합니다.</p>
+    <a href="{% url 'articles:detail' article.pk %}">[DETAIL]</a>
+    <hr>
+  {% endfor %}
+{% endblock %}

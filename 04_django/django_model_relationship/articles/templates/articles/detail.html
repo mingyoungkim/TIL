@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load humanize %}
+<!--시간 바꿔주기 위한 데이터 가져오기-->
+
+{% block content %}
+  <h2>DETAIL</h2>
+  <h3>{{ article.pk }} 번째 글</h3>
+  <hr>
+  <p>제목 : {{ article.title }}</p>
+  <p>내용 : {{ article.content }}</p>
+  <p>작성시각 : {{ article.created_at|naturalday }}</p>
+  <p>수정시각 : {{ article.updated_at|naturaltime }}</p>
+  <hr>
+  <!--게시글 만든 사용자만 update/ delete 버튼 보이기-->
+  {% if request.user ==  article.user %}
+    <a href="{% url 'articles:update' article.pk %}" class="btn btn-primary">[UPDATE]</a>
+    <form action="{% url 'articles:delete' article.pk %}" method="POST">
+      {% csrf_token %}
+      <button class="btn btn-danger">DELETE</button>
+    </form>
+  {% endif %}
+  <a href="{% url 'articles:index' %}">[back]</a>
+  <hr>
+  <h4>댓글 목록</h4>
+  {{ comments|length }} 개
+  <!--django 템플릿에 사용하는 함수들은 소괄호 붙이면 안됨-->
+  {{ article.comment_set.all|length }} 개
+  {{ comments.count }} 개
+  <ul>
+  {% for comment in comments %}
+    <li>
+    {{ comment.user }} | {{ comment.content }}
+    <!--댓글 작성자만 삭제 버튼 나오도록-->
+    {% if request.user == comment.user %}
+      <!--댓글마다 삭제 버튼-->
+      <form action="{% url 'articles:comments_delete' article.pk comment.pk %}" method="POST">
+        {% csrf_token %}
+        <input type="submit" value="DELETE">
+      </form>
+    {% endif %}
+    </li>
+  {% empty %} <!--댓글이 없다면-->
+    <p>아직 댓글이 없네요ㅠ</p>
+  {% endfor %}
+  </ul>
+  <hr>
+  <!--로그인 되어있다면-->
+  {% if request.user.is_authenticated %}
+    <!--댓글 생성-->
+    <form action="{% url 'articles:comments_create' article.pk %}" method="POST">
+      {% csrf_token %}
+      <!--form.as_p 안한 이유는 그냥 한줄로 표현하려고-->
+      {{ comment_form }}
+      <input type="submit">
+    </form>
+  {% else %}
+    <a href="{% url 'accounts:login' %}">[댓글을 작성하려면 로그인 하세요]</a>
+  {% endif %}
+{% endblock %}
