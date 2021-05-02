@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+<!--new와 edit을 합친것-->
+<!--이거를 아싸리 create에 만들어버리기!!! 이제 아니까-->
+
+{% block content %}
+
+  {% if request.resolver_match.url_name == 'create' %}
+    <h1>CREATE PAGE</h1>
+    <hr>
+  {% else %}
+    <h1>UPDATE PAGE</h1>
+    <hr>
+  {% endif %}
+
+  <h1>EDIT PAGE</h1>
+  <hr>
+  <!-- form테그의 기본 method는 GET => 조회 -->
+  <!--{% url 'articles:update' post.pk %}안넣어줘야 현재위치를 기준으로 ?-->
+  <form action="" method="POST">
+    {% csrf_token %}
+    <label for="title">제목 : </label>
+    <!--CharFiled는 input태그 사용-->
+    <!--원래 있던 내용을 가져와야하니까 기본값이 공백이였던 value에 title받아오기-->
+    <input type="text" id='title' name='title' value="{{ post.title }}">
+
+    <label for="content">내용 : </label>
+    <!--TextField 는 textarea태그 사용-->
+    <!--textarea도 역시 원래 내용 들고오기-->
+    <textarea name="content" id="content" cols="30" rows="10">
+      {{ post.content }}
+    </textarea>
+
+    <input type="submit" value="[EDIT]">
+  </form>
+
+  {% if request.resolver_match.url_name == 'create' %}
+    <a href="{% url 'articles:index'%}">[BACK]</a>  
+  {% else %}
+    <!--post는 view함수에서 받아온것-->
+    <a href="{% url 'articles:detail' post.pk %}">[BACK]</a>
+  {% endif %}
+
+{% endblock content %}
+
+

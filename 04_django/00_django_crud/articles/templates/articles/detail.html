@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>DETAIL PAGE</h1>
+  <hr>
+  <p>{{ post.pk }}</p>
+  <p>{{ post.title }}</p>
+  <p>{{ post.content }}</p>
+  <p>{{ post.created_at }}</p>
+  <p>{{ post.updated_at }}</p>
+  <hr>
+  <a href="{% url 'articles:eidt' post.pk %}">[EDIT]</a>
+
+  <!--a태그는 method라는 속성이 없기 때문에 POST인 메서드를 넣기위해 form태그로 만들어주자-->
+  <!--'<int:pk>/delete/' 지금 경로가 이래도 'appname:urlname' args으로 작성해야 함-->
+  <form action="{% url 'articles:delete' post.pk %}" method="POST">
+
+    {% csrf_token %}
+
+    <!--form태그 실행되기위한 submit과 안에 내용 vaule필요-->
+    <input type="submit" value='[DELETE]'>
+
+  </form>
+  <hr>
+  <a href=" {% url 'articles:index' %} ">[BACK]</a>
+
+{% endblock content %}
+
+
