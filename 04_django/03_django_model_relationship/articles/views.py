@@ -22,7 +22,7 @@ def create(request):
         if form.is_valid():
             article = form.save(commit=False)
             # user_id 라는 ForienKey를 받아와야 하니까 요청안에 user정보를 가져옴
-            article.user = request.user
+            article.user = request.user # like_users 필드는?????????//
             article.save()                   
             return redirect('articles:detail', article.pk)
     else:
@@ -69,7 +69,7 @@ def update(request, pk):
             form = ArticleForm(request.POST, instance=article)
             if form.is_valid():
                 form.save()
-                return redirect('articles:detail', article.pk)
+                return redirect('articles:detail', article.pk) # 여기 그냥 pk 넣으면 안됨??? (comment_delete 처럼)
         else:
             form = ArticleForm(instance=article)
     # 현재 요청한 사용자가 작성자가 아니면 목록페이지로 보내줌
@@ -82,8 +82,8 @@ def update(request, pk):
     return render(request, 'articles/update.html', context)
 
 # @login_required # 로그인한 사람들만 댓글달기
-# require_POST와 같이 못쓴느 이유는 @login_required 는 get과 post 두가지를 받을때 사용해주는 게 좋다. post만 받는 경우는 충돌 발생가능 그래서 is_authenticated로 밑에서 처리하는게 좋음
-# GET일 때 따로 처리할 필요 없다 => detail 페이지가 처리하고 있기 때문! ????????????
+# require_POST와 같이 못쓰는 이유는 @login_required 는 get과 post 두가지를 받을때 사용해주는 게 좋다. post만 받는 경우는 충돌 발생가능 그래서 is_authenticated로 밑에서 처리하는게 좋음
+# GET일 때 따로 처리할 필요 없다 => detail 페이지가 처리하고 있기 때문!
 @require_POST  
 def comments_create(request, article_pk):
     if request.user.is_authenticated:
@@ -107,7 +107,7 @@ def comments_create(request, article_pk):
         # 왜 redirect가 아니냐 ? => redirect는 유효성검사가 통과 못했다는 오류를 전달하지 못함
         return render(request, 'articles/detail.html', context)
     return redirect('accounts:login')
-    # return HttpResponse(status=401)
+    # return HttpResponse(status=401) # 401 UNAUTHORIZED 반환
 
 @require_POST # POST일 때만 삭제
 def comments_delete(request, article_pk, comment_pk):
@@ -116,9 +116,9 @@ def comments_delete(request, article_pk, comment_pk):
         # 지금 요청보낸 user와 댓글 작성한 user가 같을때만 삭제
         if request.user == comment.user:            
             comment.delete()
-        # return HttpResponseForbidden()
+        # return HttpResponseForbidden() # 403 status code 반환
     return redirect('articles:detail', article_pk)
-     # return HttpResponse(status=401)
+    # return HttpResponse(status=401)
 
 # 데이터에 관여하는 행위기 때문에
 @require_POST

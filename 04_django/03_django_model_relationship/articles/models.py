@@ -14,8 +14,6 @@ class Article(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    # 테이블 이름명!!!!!!!시험!!!~~~~아마두? ㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎ
-
 # 댓글에 관한 모델
 class Comment(models.Model):
     # article 과 comment의 1:N

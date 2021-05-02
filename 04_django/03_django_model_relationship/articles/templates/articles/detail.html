@@ -24,6 +24,7 @@
   <h4>댓글 목록</h4>
   {{ comments|length }} 개
   <!--django 템플릿에 사용하는 함수들은 소괄호 붙이면 안됨-->
+  <!--이거 두줄 차이점????????????????????-->
   {{ article.comment_set.all|length }} 개
   {{ comments.count }} 개
   <ul>

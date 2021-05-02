@@ -45,7 +45,7 @@ def login(request):
         if form.is_valid():
             # 여기는 저장이 아니라 세션을 create하는 거임 => 그 함수가 login()이라는 내장 함수
             # login() 함수는 request와 User 두 개의 인자를 받음
-            auth_login(request, form.get_user()) # 왜 얘는 form.user가 아냐??????????????????????????????????????
+            auth_login(request, form.get_user())
             # request.GET.get('next') => next라는 키 받으면 next=/ parameter가 받아지게 하기
             # login_required 데코레이터로 로그인 안한 사용자가 url로 create 페이지 접근하면 주소가 next=/ 라는 parameter가 따라옴
             # 그 후, 로그인 성공하면 next=/ parameter가 받아지게 하기
@@ -92,7 +92,7 @@ def delete(request):
     if request.user.is_authenticated:        
         request.user.delete() # user 지움
         auth_logout(request) # 사용자 삭제하고 로그아웃해서 세션에 있는 정보까지 지우기
-    return redirect('articles:index') # 이거 왜 retrun 들여쓰기 안해주지
+    return redirect('articles:index')
 
 @login_required # 로그인 안한 사용자가 이 페이지 보려고 했을 때 로그인 페이지로 돌아가게됨 (대신 next=/ => parameter 돌려줌)
 @require_http_methods(['GET', 'POST'])
@@ -121,7 +121,7 @@ def change_password(request):
             # save() 는 비밀번호 변경하면 로그인이 풀림 why? => session값이 달라져서 session_id가 사라져버림 (db에 있던 session도 사라짐)
             # 비밀번호 변경하면 다시 로그인하면 새로운 session_id 생기면서 로그인 상태가 됨
             user = form.save()
-            update_session_auth_hash(request, form.user) # 이거 왜 form.get_user 아니냐고오오오옹오오오!!!!!!!!!!!!!!!           
+            update_session_auth_hash(request, form.user) # 이거 왜 user 아니냐고오오오옹오오오!!!!!!!!!!!!!!!           
             return redirect('articles:index')
     else:
         form = PasswordChangeForm(request.user)
