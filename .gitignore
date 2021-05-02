@@ -293,3 +293,6 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/venv,windows,macos,django,python
+
+# Django settings.py SECRET_KEY file
+secrets.json
