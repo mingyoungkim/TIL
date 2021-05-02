@@ -127,7 +127,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 # 내가 base.html에서 별도로 css를 적용하고플때
 # static 폴더 찾아가자
-# base_dir => 현재 내 위치 (workshop)
+# base_dir => 현재 내 위치 (01_django_form)
 # app내의 static 디렉토리 경로를 사용하는 것(기본 경로) 외에 추가적인 정적 파일 경로 정의
 STATICFILES_DIRS = [
     BASE_DIR / 'crud' / 'static'

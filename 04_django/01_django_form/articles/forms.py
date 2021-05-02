@@ -38,7 +38,7 @@ class ArticleForm(forms.ModelForm):
 # # Article model에 대한 Form이여서
 # class ArticleForm(forms.Form):
 #     # list 보통 대문자로 정의
-#     # pjt의 settings의 형식과 갇다
+#     # pjt의 settings의 형식과 같다.
 #     REGIONS = [
 #         # 실제 데이터 값, html에 렌더링 될 문자열
 #         ('gumi', '구미'),
