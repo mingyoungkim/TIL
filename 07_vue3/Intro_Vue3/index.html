@@ -13,13 +13,21 @@
       <div class="nav-bar"></div>
 
       <div class="cart">Cart({{ cart }})</div>
-      
+      <!-- main.js에 있는 premium가져오기 -->
+      <!-- v-bind로 해줌으로써 productDisplay에서 사용할 수 있음 -->
+      <product-display :premium="premium"></product-display>
+
       <!--이곳에 원래 productDisplay.js의 template 이 있었음-->
 
     </div>
 
     <!-- Import App -->
     <script src="./main.js"></script>
+
+    <!-- Import Components -->
+    <!-- import해와야 body에 사용가능 -->
+    <script src="./components/productDisplay.js"></script>
+    <script src="./components/productDetails.js"></script>
 
     <!-- Mount App -->
     <script>
