@@ -40,9 +40,10 @@
 
     ```text
     기존에도 mixin 기능을 활용하면 코드를 재사용 할 수 있었지만, 
-    오버라이딩 문제나 여러가지 mixin을 상속받을 경우 컴포넌트를 관리하기가 조금 까다로워지는 등 아쉬움이 있어 이러한 단점을 보완하기 위해 Composition API를 사용한다.
+    오버라이딩 문제나 여러가지 mixin을 상속받을 경우 컴포넌트를 관리하기가 조금 까다로워지는 등 아쉬움이 있어 
+    이러한 단점을 보완하기 위해 Composition API를 사용한다.
     ```
-
+  
 - template
   - template에 큰 <div></div>로 감싸주고 여러 개의 태그를 넣어야했다.
 
@@ -151,6 +152,7 @@ export default {
     // const name = 'Mini Coder';
     // const는 재할당 불가 하므로 let으로 바꿔주자.
     // let name = 'Mini Coder';
+    // let으로 해도 안되는 이유?? 변수에만 담아줘서! => ref, reactive 필요
     const name = ref('Mini Coder');
 
     const updateName = () => {
@@ -179,7 +181,7 @@ export default {
 - `.value`를 쓰지 않고 재할당 하려면
 
   - 기본적으로 문자, 숫자는 ref를 사용해야하고
-  - object 나 Array는 reactive 사용 가능
+  - object 나 Array는 `reactive` 사용 가능
 
   ```vue
   <template>
@@ -406,3 +408,4 @@ export default {
     }
   </style>
   ```
+
