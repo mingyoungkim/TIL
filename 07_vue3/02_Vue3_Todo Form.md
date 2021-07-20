@@ -9,6 +9,8 @@
 * 하나의 부품(component)
 * component파일을 만들면 확장자가 vue가 된다.
 
+  [Vue.js Component]: https://kr.vuejs.org/v2/guide/components.html
+
 
 
 > 구성
