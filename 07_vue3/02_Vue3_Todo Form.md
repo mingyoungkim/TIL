@@ -9,7 +9,7 @@
 * 하나의 부품(component)
 * component파일을 만들면 확장자가 vue가 된다.
 
-  [Vue.js Component]: https://kr.vuejs.org/v2/guide/components.html
+  [Vue.js Component]: https://v3.vuejs.org/guide/component-basics.html#base-example
 
 
 
@@ -31,15 +31,18 @@
 > Vue3 로 오면서 변한 점
 
 - composition API란?
+  
+  - [Composition API]: https://v3.vuejs.org/guide/composition-api-introduction.html
+    
   - 구성 요소 논리를 유연하게 구성할 수 있는 추가 기능 기반 API
-
+  
   - Vue 3.0 에서 새로 추가된 함수 기반의 API
-
+  
   - 목적
 
     - 기존에 사용하던 Options API를 사용해서 논리구조를 분리
     - 재사용을 가능
-
+  
     ```text
     기존에도 mixin 기능을 활용하면 코드를 재사용 할 수 있었지만, 
     오버라이딩 문제나 여러가지 mixin을 상속받을 경우 컴포넌트를 관리하기가 조금 까다로워지는 등 아쉬움이 있어 

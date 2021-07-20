@@ -4,7 +4,7 @@
 
 ### 01. 설치 단계
 
-[설치환경]: https://kr.vuejs.org/v2/guide/installation.html
+[설치환경]: https://v3.vuejs.org/guide/installation.html#npm
 
 
 
