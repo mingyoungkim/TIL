@@ -5,7 +5,9 @@
     <button @click="onToggle">Toggle</button>
     <div class="container">
       <h2>Todo List</h2>
-      <form @submit.prevent="onSubmit">
+      <TodoSimpleForm/>
+      <!-- Form 부분을 자식 컴포넌트에 넣어주기~ -->
+      <!-- <form @submit.prevent="onSubmit">
         <div class="d-flex">
           <div class="flex-grow-1 mr-2">
             <input
@@ -27,12 +29,10 @@
       <div v-show="hasError" style="color:red">
         Error! This field cannot be empty
       </div>
-      </form>
-      <!-- Todo가 없을 때만 이 멘트 작성 -->
+      </form> -->
       <div v-if="!todos.length">
         추가된 Todo가 없습니다.
       </div>
-      <!-- v-for 할 때 두번째 인자로 index 사용 가능 -->
       <div
       class="card mt-2"
       v-for="(todo, index) in todos"
@@ -67,14 +67,18 @@
 </template>
 
 <script>
-import { ref } from 'vue';
+import { ref } from 'vue'
+import TodoSimpleForm from './components/TodoSimpleForm.vue'
 
 export default {
+  components: {
+    TodoSimpleForm
+  },
   setup() {
     const toggle = ref(false);
-    const todo = ref('');
+    
     const todos = ref([]);
-    const hasError = ref(false);
+    
 
     const todoStyle = {
       textDecoration: 'line-through',
@@ -82,17 +86,17 @@ export default {
     };
 
     const onSubmit = () => {
-      if (todo.value === '') {
-        hasError.value = true;
-      } else {
-        todos.value.push({
-          id: Date.now(),
-          subject: todo.value,
-          completed: false,
-        });
-        hasError.value = false;
-        todo.value = '';
-      }      
+    //   if (todo.value === '') {
+    //     hasError.value = true;
+    //   } else {
+    //     todos.value.push({
+    //       id: Date.now(),
+    //       subject: todo.value,
+    //       completed: false,
+    //     });
+    //     hasError.value = false;
+    //     todo.value = '';
+    //   }      
     };
 
     const onToggle = () => {
@@ -100,16 +104,12 @@ export default {
     };    
 
     const deleteTodo = (index) => {
-      // console.log('delete todo')
-      // todos의 특정 todo를 한개 지우자
       todos.value.splice(index, 1)
     };
 
     return {
-      todo,
       todos,
       toggle,
-      hasError,
       todoStyle,
       onSubmit,
       onToggle,

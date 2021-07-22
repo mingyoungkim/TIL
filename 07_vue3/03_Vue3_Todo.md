@@ -79,13 +79,14 @@ export default {
     // 처음에 시작할 때 empty string으로 값 주기
     const todo = ref('');
     // 추가된 todo 담아주기
+    // 잘 담기는지 확인하기 위해 defalt로 두 개 넣어주기
     const todos = ref([
       {id: 1, subject: '몽이 밥주기'},
       {id: 2, subject: '몽이 목욕시키기'}
     ]);
 
     const onSubmit = () => {
-      // event의 기본적인 refresh하는 속성 예방
+      // event의 기본적인 refresh하는 속성 예방 (js에서)
       // e.preventDefault();
       // todos에 객체를 추가시키기
       todos.value.push({
@@ -339,6 +340,7 @@ export default {
     const todo = ref('');
     const todos = ref([]);
     const hasError = ref(false);
+      
     // style은 변경 될 일 없으니까 ref로 안해도 됨
     const todoStyle = {
       // css에서는 text-decoration 지금은 js
@@ -539,4 +541,144 @@ export default {
   }
 </style>
 ```
+
+
+
+-----
+
+✍`Todo 추가 생성 삭제 코드`
+
+```vue
+<template>
+  <div>
+    <div v-if="toggle">true</div>
+    <div v-else>false</div>
+    <button @click="onToggle">Toggle</button>
+    <div class="container">
+      <h2>Todo List</h2>
+      <TodoSimpleForm/>
+      <form @submit.prevent="onSubmit">
+        <div class="d-flex">
+          <div class="flex-grow-1 mr-2">
+            <input
+              class="form-control"
+              type="text"
+              placeholder="Type new to-do"
+              v-model="todo"
+            >
+          </div>
+          <div>
+            <button
+              class="btn btn-primary"
+              type="submit"
+            >
+            Add
+            </button>
+          </div>
+        </div>
+      <div v-show="hasError" style="color:red">
+        Error! This field cannot be empty
+      </div>
+      </form>
+      <div v-if="!todos.length">
+        추가된 Todo가 없습니다.
+      </div>
+      <div
+      class="card mt-2"
+      v-for="(todo, index) in todos"
+      :key="todo.id"
+      >
+        <div class="card-body p-2 d-flex align-items-center">
+          <div class="form-check flex-grow-1">
+            <input
+             class="form-check-input"
+             type="checkbox"
+             v-model="todo.completed"
+            >
+            <label
+             class="form-check-label"
+             :class="{ todo: todo.completed }"
+            >
+             {{ todo.subject }}
+            </label>
+          </div>
+          <div>
+            <button
+             class="btn btn-danger btn-sm"
+             @click="deleteTodo(index)"
+            >
+              Delete
+            </button>
+          </div>          
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import { ref } from 'vue'
+import TodoSimpleForm from './components/TodoSimpleForm.vue'
+
+export default {
+  components: {
+    TodoSimpleForm
+  },
+  setup() {
+    const toggle = ref(false);
+    const todo = ref('');
+    const todos = ref([]);
+    const hasError = ref(false);
+
+    const todoStyle = {
+      textDecoration: 'line-through',
+      color: 'gray'
+    };
+
+    const onSubmit = () => {
+      if (todo.value === '') {
+        hasError.value = true;
+      } else {
+        todos.value.push({
+          id: Date.now(),
+          subject: todo.value,
+          completed: false,
+        });
+        hasError.value = false;
+        todo.value = '';
+      }      
+    };
+
+    const onToggle = () => {
+      toggle.value = !toggle.value;    
+    };    
+
+    const deleteTodo = (index) => {
+      todos.value.splice(index, 1)
+    };
+
+    return {
+      todo,
+      todos,
+      toggle,
+      hasError,
+      todoStyle,
+      onSubmit,
+      onToggle,
+      deleteTodo
+    };
+    
+  },
+}
+</script>
+
+<style>
+  .todo {
+    color: gray;
+    text-decoration: line-through;
+  }
+</style>
+```
+
+
 
