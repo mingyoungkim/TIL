@@ -24,30 +24,41 @@
             </button>
           </div>
         </div>
-      <div v-show="hasError" style="color:red">Error! This field cannot be empty</div>
+      <div v-show="hasError" style="color:red">
+        Error! This field cannot be empty
+      </div>
       </form>
+      <!-- Todo가 없을 때만 이 멘트 작성 -->
+      <div v-if="!todos.length">
+        추가된 Todo가 없습니다.
+      </div>
+      <!-- v-for 할 때 두번째 인자로 index 사용 가능 -->
       <div
       class="card mt-2"
-      v-for="todo in todos"
+      v-for="(todo, index) in todos"
       :key="todo.id"
       >
-        <div class="card-body p-2">
-          <div class="form-check">
+        <div class="card-body p-2 d-flex align-items-center">
+          <div class="form-check flex-grow-1">
             <input
              class="form-check-input"
              type="checkbox"
              v-model="todo.completed"
             >
-            <!-- Class 바인딩 중 Object Syntax -->
-            <!-- object안에 key값으로 넣고 싶은 class name
-              value에 Boolean 들어감
-              value가 T면 key값인 class가 추가/ F면 추가 안됨 -->
             <label
              class="form-check-label"
              :class="{ todo: todo.completed }"
             >
              {{ todo.subject }}
             </label>
+          </div>
+          <div>
+            <button
+             class="btn btn-danger btn-sm"
+             @click="deleteTodo(index)"
+            >
+              Delete
+            </button>
           </div>          
         </div>
       </div>
@@ -64,9 +75,8 @@ export default {
     const todo = ref('');
     const todos = ref([]);
     const hasError = ref(false);
-    // style은 변경 될 일 없으니까 ref로 안해도 됨
+
     const todoStyle = {
-      // css에서는 text-decoration 지금은 js
       textDecoration: 'line-through',
       color: 'gray'
     };
@@ -89,6 +99,12 @@ export default {
       toggle.value = !toggle.value;    
     };    
 
+    const deleteTodo = (index) => {
+      // console.log('delete todo')
+      // todos의 특정 todo를 한개 지우자
+      todos.value.splice(index, 1)
+    };
+
     return {
       todo,
       todos,
@@ -97,6 +113,7 @@ export default {
       todoStyle,
       onSubmit,
       onToggle,
+      deleteTodo
     };
     
   },

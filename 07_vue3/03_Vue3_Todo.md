@@ -1,6 +1,6 @@
-# Vue3_Todo Add
+# Vue3_Todo 추가 및 삭제
 
-## Todo Add 하자
+## Todo Add
 
 ### 01. Event Prevent
 
@@ -431,6 +431,101 @@ export default {
       toggle,
       hasError,
       onSubmit,
+    };
+    
+  },
+}
+</script>
+
+<style>
+  .todo {
+    color: gray;
+    text-decoration: line-through;
+  }
+</style>
+```
+
+
+
+## Todo Delete
+
+```vue
+<template>
+      <!-- Todo가 없을 때만 이 멘트 작성 -->
+      <div v-if="!todos.length">
+        추가된 Todo가 없습니다.
+      </div>
+      <!-- v-for 할 때 두번째 인자로 index 사용 가능 -->
+      <div
+      class="card mt-2"
+      v-for="(todo, index) in todos"
+      :key="todo.id"
+      >
+        <div class="card-body p-2 d-flex align-items-center">
+          <div class="form-check flex-grow-1">
+            <input
+             class="form-check-input"
+             type="checkbox"
+             v-model="todo.completed"
+            >
+            <label
+             class="form-check-label"
+             :class="{ todo: todo.completed }"
+            >
+             {{ todo.subject }}
+            </label>
+          </div>
+          <div>
+            <!-- btn 누르면 Todo 삭제 -->
+            <button
+             class="btn btn-danger btn-sm"
+             @click="deleteTodo(index)"
+            >
+              Delete
+            </button>
+          </div>          
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import { ref } from 'vue';
+
+export default {
+  setup() {
+    const toggle = ref(false);
+    const todo = ref('');
+    const todos = ref([]);
+    const hasError = ref(false);
+
+    const onSubmit = () => {
+      if (todo.value === '') {
+        hasError.value = true;
+      } else {
+        todos.value.push({
+          id: Date.now(),
+          subject: todo.value,
+          completed: false,
+        });
+        hasError.value = false;
+        todo.value = '';
+      }      
+    };
+
+    const deleteTodo = (index) => {
+      // console.log('delete todo')
+      // todos의 특정 todo를 한개 지우자
+      todos.value.splice(index, 1)
+    };
+
+    return {
+      todo,
+      todos,
+      toggle,
+      onSubmit,
+      deleteTodo
     };
     
   },
