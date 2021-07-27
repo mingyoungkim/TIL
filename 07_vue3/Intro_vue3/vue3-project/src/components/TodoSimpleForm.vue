@@ -29,7 +29,9 @@
 import { ref } from 'vue';
 
 export default {
-  setup() {
+  emits: ['add-todo'],
+
+  setup(props, { emit }) {
     const todo = ref('');
     const hasError = ref(false);
 
@@ -37,11 +39,11 @@ export default {
       if (todo.value === '') {
         hasError.value = true;
       } else {
-        // todos.value.push({
-        //   id: Date.now(),
-        //   subject: todo.value,
-        //   completed: false,
-        // });
+        emit('add-todo', {
+          id: Date.now(),
+          subject: todo.value,
+          completed: false,
+        })        
         hasError.value = false;
         todo.value = '';
       }      
