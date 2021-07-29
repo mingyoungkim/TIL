@@ -303,7 +303,7 @@
   
 - Props를 통해 부모 컴포넌트에서 자식 컴포넌트로 데이터 보내기
 
-  [Props Type]: https://v3.vuejs.org/guide/component-props.html
+  [https://v3.vuejs.org/guide/component-props.html](https://v3.vuejs.org/guide/component-props.html ) 
 
   - 부모 컴포넌트
 

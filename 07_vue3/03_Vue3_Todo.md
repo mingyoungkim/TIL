@@ -4,7 +4,7 @@
 
 ### 01. Event Prevent
 
-[Vue.js 이벤트 수식어]: https://v3.vuejs.org/guide/events.html#event-modifiers
+[https://v3.vuejs.org/guide/events.html#event-modifiers](https://v3.vuejs.org/guide/events.html#event-modifiers ) 
 
 - `v-on` 이벤트에 **이벤트 수식어**를 제공
 
