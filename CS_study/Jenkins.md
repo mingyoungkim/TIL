@@ -51,5 +51,55 @@
    - 컨테이너에 JRE가 포함
    - docker 컨테이너에 대한 이해 필요
 
-3. 
+3. Live 사연
+
+   - docker-hub => jenkins/jenkins
+
+   
+
+### Docker file
+
+Dockerfile
+
+1 2 3 4 5 6 7 8
+
+```
+FROM jenkins/jenkins COPY ~~.pem /var/jenkins_home USER root RUN chmod 600 /var/jenkins_home/~~.pem RUN apt-get update RUN apt-get install -y python RUN apt-get install -y npm 
+```
+
+### shell
+
+```
+docker build -t jenkins. docker run -d --name jenkins -p 8080:8080 -p 50000:50000 jenkins:1.0
+```
+
+### Jenkins 관리 - Credentials
+
+Jenkins store -> add credentials
+
+username: email
+
+pasword: pwd
+
+id: ~~
+
+### 새로운 Item (pipe line) - Script
+
+- 파이프라인을 쓰면 중간 과정을 볼 수 있다.
+
+```
+pipeline{    agent any        stages{        stage("prepare"){            steps{                git credentialsId: "ssafy", url: "~~"                sh "npm install"            }        }                stage("build"){            steps{            sh "npm run build"                        }            post{                success{                    sh "scp -i /var/jenkins_home/~~.pem -q -o StrictHostKeyChecking=no -r ./dist/ ubuntu@~~~.io:/home.ubuntu/test"                    echo "Success"                }            }        }    } }
+```
+
+### 간단하게 확인
+
+```
+sudo python3 -m http-.server 8000
+```
+
+### 시나리오
+
+- gitlab -> pull into container
+- npm install => npm run build
+- copy dist ./ ec2
 
