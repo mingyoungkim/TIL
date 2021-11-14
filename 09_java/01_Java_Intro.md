@@ -95,6 +95,8 @@
 - 공백 X
 - 미리 정의된 키워드(keyword) X
 
+![image-20211114181031823](01_Java_Intro.assets/image-20211114181031823.png)
+
 
 
 > 변수 종류
