@@ -10,5 +10,6 @@
   - Client : Resoure Server에 접속해서 정보를 가져오고자 하는 클라이언트(웹 어플리케이션)
 
 ## Oauth Flow
-
-https://tecoble.techcourse.co.kr/post/2021-07-10-understanding-oauth/
+  https://tecoble.techcourse.co.kr/post/2021-07-10-understanding-oauth/
+  [!Oauth2.0_process](./README_images/oauth2.0-process.png)
+  🤔 직접 구현이 답....!!!
