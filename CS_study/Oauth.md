@@ -15,3 +15,7 @@
   [!Oauth2.0_process](./README_images/oauth2.0-process.png)
   🤔 직접 구현이 답....!!!
   => 셍활코딩 OAuth 
+
+## 생활코딩
+  - 정보를 제공하는 웹사이트의 아이디와 비밀번호를 제공하지 않고 `Access Token`을 부여해 발급
+  - 즉, 필수적 기능만 사용하도록 함
