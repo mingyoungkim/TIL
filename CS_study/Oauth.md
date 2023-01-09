@@ -19,3 +19,6 @@
   - 정보를 제공하는 웹사이트의 아이디와 비밀번호를 제공하지 않고 `Access Token`을 부여해 발급
   - 즉, 필수적 기능만 사용하도록 함
   - 참여자
+
+## 업무에 적용
+  - https://velog.io/@devjade/OAuth-authentication-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0github-%EB%A1%9C%EA%B7%B8%EC%9D%B8
