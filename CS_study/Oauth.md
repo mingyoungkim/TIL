@@ -13,7 +13,6 @@
 ## OAuth Flow
   https://tecoble.techcourse.co.kr/post/2021-07-10-understanding-oauth/
   [!Oauth2.0_process](./README_images/oauth2.0-process.png)
-  🤔 직접 구현이 답....!!!
   => 셍활코딩 OAuth 
 
 ## 생활코딩
