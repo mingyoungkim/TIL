@@ -1,5 +1,5 @@
 # OAuth 2.0
- > 사용자가 비밀번호를 제공 않고 타 웹사이트나 어플에 접근 권한을 부여해 해당 정보를 사용하도록 하는 프로토콜
+ > 사용자가 비밀번호를 제공 않고 타 웹사이트나 어플에 접근 권한(`Access Token`)을 부여해 해당 정보를 사용하도록 하는 프로토콜
    (1.0에서 보안문제 개선한 버전)
    [!프로토콜이란?](./%ED%94%84%EB%A1%9C%ED%86%A0%EC%BD%9C.md)
 
@@ -15,10 +15,15 @@
   [!Oauth2.0_process](./README_images/oauth2.0-process.png)
   => 셍활코딩 OAuth 
 
-## 생활코딩
-  - 정보를 제공하는 웹사이트의 아이디와 비밀번호를 제공하지 않고 `Access Token`을 부여해 발급
-  - 즉, 필수적 기능만 사용하도록 함
-  - 참여자
+## 인증종류
+  - Authorization Code Grant
+  - Implicit Grant
+  - Client Credentials Grant
+  - Resource Owner Password Credentials Grant
 
-## 업무에 적용
-  - https://velog.io/@devjade/OAuth-authentication-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0github-%EB%A1%9C%EA%B7%B8%EC%9D%B8
+## 참고링크
+  1. OAuth 이용해 인증 구현
+     - https://velog.io/@devjade/OAuth-authentication-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0github-%EB%A1%9C%EA%B7%B8%EC%9D%B8
+
+  2. OAuth 모듈 구현
+     - https://cozy-ho.github.io/server/2021/07/19/Nodejs%EB%A1%9C-OAuth-%EC%9D%B8%EC%A6%9D%EC%84%9C%EB%B2%84-%EB%A7%8C%EB%93%A4%EA%B8%B0-oidc-provider.html
