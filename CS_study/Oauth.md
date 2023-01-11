@@ -16,10 +16,10 @@
   => 셍활코딩 OAuth 
 
 ## 인증종류
-  - Authorization Code Grant
-  - Implicit Grant
-  - Client Credentials Grant
-  - Resource Owner Password Credentials Grant
+  - 권한부여승인 (Authorization Code Grant)
+  - 암시적 승인 (Implicit Grant)
+  - 클라이언트 자격 증명 승인 (Client Credentials Grant)
+  - 리소스 소유자 암호 자격 증명 승인 (Resource Owner Password Credentials Grant)
 
 ## 참고링크
   1. OAuth 이용해 인증 구현
@@ -27,3 +27,4 @@
 
   2. OAuth 모듈 구현
      - https://cozy-ho.github.io/server/2021/07/19/Nodejs%EB%A1%9C-OAuth-%EC%9D%B8%EC%A6%9D%EC%84%9C%EB%B2%84-%EB%A7%8C%EB%93%A4%EA%B8%B0-oidc-provider.html
+     - java로 구현 !!!! : https://co-de.tistory.com/29
