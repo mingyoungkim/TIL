@@ -17,6 +17,11 @@
 
 ## 인증종류
   - 권한부여승인 (Authorization Code Grant)
+     - 권한 부여 승인을 위해 자체 생성한 Authorization Code를 전달하는 방식
+     - 가장 많이 쓰이는 기본적인 방식
+     - 간편 로그인 기능에서 사용되는 방식
+     - 클라이언트가 사용자를 대신하여 특정 자원에 접근을 요청할 때 사용
+     - Refresh Token 사용 가능한 방식
   - 암시적 승인 (Implicit Grant)
   - 클라이언트 자격 증명 승인 (Client Credentials Grant)
   - 리소스 소유자 암호 자격 증명 승인 (Resource Owner Password Credentials Grant)
