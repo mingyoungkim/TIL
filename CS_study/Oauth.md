@@ -38,3 +38,9 @@
   2. OAuth 모듈 구현
      - https://cozy-ho.github.io/server/2021/07/19/Nodejs%EB%A1%9C-OAuth-%EC%9D%B8%EC%A6%9D%EC%84%9C%EB%B2%84-%EB%A7%8C%EB%93%A4%EA%B8%B0-oidc-provider.html
      - java로 구현 !!!! : https://co-de.tistory.com/29
+
+## Kakao 로그인 구현
+  - ID와 비밀번호로 사용자 신원을 확인
+  - 로그인 세션 대신 사용 가능한 ID 토큰 제공 
+  - 액세스 토큰(Access token), 리프레시 토큰(Refresh token) 두 종류의 토큰을 발급
+  
