@@ -30,15 +30,6 @@
   - 리소스 소유자 암호 자격 증명 승인 (Resource Owner Password Credentials Grant)
      - 클라이언트가 암호를 사용하여 엑세스 토큰에 대한 사용자의 자격 증명을 교환
 
-
-## 참고링크
-  1. OAuth 이용해 인증 구현
-     - https://velog.io/@devjade/OAuth-authentication-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0github-%EB%A1%9C%EA%B7%B8%EC%9D%B8
-
-  2. OAuth 모듈 구현
-     - https://cozy-ho.github.io/server/2021/07/19/Nodejs%EB%A1%9C-OAuth-%EC%9D%B8%EC%A6%9D%EC%84%9C%EB%B2%84-%EB%A7%8C%EB%93%A4%EA%B8%B0-oidc-provider.html
-     - java로 구현 !!!! : https://co-de.tistory.com/29
-
 ## Kakao 로그인 구현
   > 권한부여승인 인증종류 사용
   
@@ -66,3 +57,14 @@
 
   ### OpenID Connect 지원
      - 사용자 인증 정보를 담은 ID 토큰을 함께 발급
+
+
+
+
+## 참고링크
+  1. OAuth 이용해 인증 구현
+     - https://velog.io/@devjade/OAuth-authentication-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0github-%EB%A1%9C%EA%B7%B8%EC%9D%B8
+
+  2. OAuth 모듈 구현
+     - https://cozy-ho.github.io/server/2021/07/19/Nodejs%EB%A1%9C-OAuth-%EC%9D%B8%EC%A6%9D%EC%84%9C%EB%B2%84-%EB%A7%8C%EB%93%A4%EA%B8%B0-oidc-provider.html
+     - java로 구현 !!!! : https://co-de.tistory.com/29
