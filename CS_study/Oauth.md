@@ -1,42 +1,53 @@
-# OAuth 2.0
+# OAuth2.0
+
+## 정의
  > 사용자가 비밀번호를 제공 않고 타 웹사이트나 어플에 접근 권한(`Access Token`)을 부여해 해당 정보를 사용하도록 하는 프로토콜
-   (1.0에서 보안문제 개선한 버전)
-    => OAuth 1.0과의 차이점
-    ```TXT
-      즉 OAuth는 총 고객, 고객이 이용하려는 애플리케이션, 고객 정보를 가지고 있는 애플리케이션 이렇게 3개가 상호작용하는 형태이다.
-      구현이 복잡함,
-      HMAC(keyed-hash message authentication code, hash-based message authentication code)를 통한 암호화를 하는 번거로움,
-      인증토큰이 만료가 되지 않아 토큰을 만료하려면 제공자 애플리케이션의 비밀번호를 바꿔야 함
-      등 으로 OAuth 2.0이 등장하였습니다.
-    ```
+   즉, 타 사이트 사용자 정보에 대한 엑세스 권한 부여
    [!프로토콜이란?](./%ED%94%84%EB%A1%9C%ED%86%A0%EC%BD%9C.md)
 
-## OAuth 참여자
-  - Resource Server : Client가 제어하고자 하는 자원을 보유하고 있는 서버
-    (Facebook, Google, Twitter 등)
-  - Resource Owner : 자원의 소유자
-    (Client가 제공하는 서비스를 통해 로그인하는 실제 유저)
-  - Client : Resoure Server에 접속해서 정보를 가져오고자 하는 클라이언트(웹 어플리케이션)
+OAuth1.0과의 차이
+ - 기능의 단순화, 기능과 규모의 확장성 등을 지원
+ - https를 통해 암호화를 하여 과정의 단수화
+ - 다양한 인증 방식
+ - api서버에서 인증서버와 리소스 서버가 분리
+
+## 구성
+ - Resource Owner : 사용자
+ - Client : Resource Server에서 제공하는 자원을 사용하는 애플리케이션
+ - Resource Server (API Server) : 자원을 호스팅하는 서버
+    - 호스팅 : 서버 컴퓨터의 전체 또는 일정 공간을 이용할 수 있도록 임대해 주는 서비스
+ - Authorization Server : 사용자의 동의를 받아서 권한을 부여하는 서버
+
+## 종류
+ ### 권한 부여 코드 승인 방식   
+    ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/53b38201-3a51-4508-bf29-0af0c54ce21a/Untitled.png)
+    
+    ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/85c0cebe-eac8-4bdf-932c-2cde9a86517b/Untitled.png)
+    
+ ### 암시적 승인 타입
+    1. 권한 부여 코드 승인방식에서 AccessToken 발급을 위한 Code 발급과정이 없음
+    2. Refresh Token 사용 불가
+    3. redirect URL 에 AccssToken 이 response_type 으로 넘겨지기 때문에 토큰 노출 위험
+    
+ ### 자원 소유자 자격증명 승인 방식
+    1. userId, userPsw를 바로 던져 AccessToken 발급
+    2. 보안 위험
+    3. Refresh Token 사용 가능
+    
+    ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e55a00c4-a25a-439c-86c6-b4074a325af2/Untitled.png)
+    
+ ### 클라이언트 자격증명 승인 방식
+    1. 클라이언트 자신이 관리하는 리소스 혹은 권한 서버에 해당 클라이언트를 위한 제한된 리소스 접근 권한이 설정되어 있는 경우 사용
+    2. 자격증명을 안전하게 보관할 수 있는 클라이언트에서만 사용되어야 함
+    
+    ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/3e62afea-6efe-4745-b867-1aa4c69a497b/Untitled.png)
+    
 
 ## OAuth Flow
   https://tecoble.techcourse.co.kr/post/2021-07-10-understanding-oauth/
   [!Oauth2.0_process](./README_images/oauth2.0-process.png)
   => 셍활코딩 OAuth 
 
-## 인증종류
-  - 권한부여승인 (Authorization Code Grant)
-     - 권한 부여 승인을 위해 자체 생성한 Authorization Code를 전달하는 방식
-     - 가장 많이 쓰이는 기본적인 방식
-     - 간편 로그인 기능에서 사용되는 방식
-     - 클라이언트가 사용자를 대신하여 특정 자원에 접근을 요청할 때 사용
-     - Refresh Token 사용 가능한 방식
-  - 암시적 승인 (Implicit Grant)
-     - 권한 부여 코드 승인 타입과 다르게 권한 코드 교환 단계 없이 엑세스 토큰을 즉시 반환받아 이를 인증에 이용하는 방식
-       (인증 코드 빼고 모두 동일한 과정)
-  - 클라이언트 자격 증명 승인 (Client Credentials Grant)
-     - 클라이언트가 컨텍스트 외부에서 액세스 토큰을 얻어 특정 리소스에 접근을 요청할 때 사용
-  - 리소스 소유자 암호 자격 증명 승인 (Resource Owner Password Credentials Grant)
-     - 클라이언트가 암호를 사용하여 엑세스 토큰에 대한 사용자의 자격 증명을 교환
 
 ## Kakao 로그인 구현
   > 권한부여승인 인증종류 사용
