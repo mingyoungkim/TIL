@@ -20,7 +20,7 @@
 
 > 자바 프로그래밍
 
-![image-20211114143522557](01_Java_Intro.assets/image-20211114143522557.png)
+![image-20211114143522557](Java.assets/image-20211114143522557.png)
 
 - Java compiler
 
@@ -95,7 +95,7 @@
 - 공백 X
 - 미리 정의된 키워드(keyword) X
 
-![image-20211114181031823](01_Java_Intro.assets/image-20211114181031823.png)
+![image-20211114181031823](Java.assets/image-20211114181031823.png)
 
 
 
