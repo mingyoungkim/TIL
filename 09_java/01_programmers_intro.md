@@ -1,4 +1,4 @@
-# JAVA
+# JAVA_intro
 
  ## JAVA 특징
    - 플랫폼에 독립적 (JVM : java로 만들어진 프로그램을 실행해주는 프로그램)
@@ -33,6 +33,7 @@
      `리터럴 : 특정한 값 자체`
    - 식별자 : 변수의 이름
    - 명명규칙 : 첫번째 문자 `소문자`, `camelCase`
+   - 변수의 scope : 변수를 선언한 위치에 따라 사용할 수 있는 범위가 달라짐
   
   ### 상수
    - 변수처럼 값을 저장할 수 있는 메모리 공간
@@ -125,13 +126,68 @@
       value -= 1;
     }
    ```
+  
+  ### for each
+   - for (타입 값을 받아줄 변수명 : 출력하고 싶은 자료구조)
+  ```java
+    int [] array1 = {1, 2, 3, 4};
+    // 일반 for문
+    for (int i=0; i<array1.length; i++) {
+      int value = array1[i];
+      System.out.println(value);
+    }
+    // for each 문
+    for (int value:array1) {
+      System.out.println(value);
+    } 
+  ```
 
+ ## 배열
+   > 변수가 많아져 하나하나 선언하기 힘든 경우 사용 (참조형 타입)
+  ### 1차원 배열
+  ```java
+    // [] : 배열을 나타냄, new : 배열 생성 시 사용
+    // 배열안의 정수 갯수 (100개) -> 배열 크기는 처음 선언 후 변경 X
+    int[] array1 = new int[100];
+    array1[0] = 50;
+
+    // 선언과 동시에 배열크기 및 값 넣기
+    int[] array2 = new int[]{1, 2, 3, 4}; 
+    int[] array3 = {1, 2, 3, 4};
+
+    System.out.println("배열의 길이는 length" + array1.length)
+  ```
+
+  ### 2차원 배열
+   > 배열의 배열
+  ```java
+    int[][] array1 = new int[3][4]; // 3행 4열
+    array1[0][1] = 10;
+
+    // 크기가 다른 배열 생성도 가능 
+    int[][] array2 = new int[3][]; // 값을 담을 수 있는 1차원 배열 만들어지지 않음
+    array[0] = new int[2]; // 값을 담을 배열을 선언해줘야 아래 값을 담을 수 있음
+    array[0][2] = 10; 
+
+    // 선언과 동시에 값 넣기
+    int[][] array3 = {{1}, {1,2}, {1,2,3}};
+  ```
+  ![java_array](Java.assets/java_2dimensional.png)
 
  ## Python 과 차이
-   1. 
+   1. 참/거짓
     - python : 0은 false/ 나머지 true
     - java : 불가
-   2. 
+   2. 값 비교 범위
     - python : 1 < 변수 < 10
     - java : 변수 > 1 && 변수 < 10
+   3. 반복문
+    - python : for i in range(1, 3) :
+    - java : for (int i=0; i<3, i++) {
+             }
+   4. 함수
+    - 길이
+      - python : len(value)
+      - java : value.length
+
     
