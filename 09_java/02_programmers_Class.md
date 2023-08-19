@@ -1,10 +1,10 @@
 # JAVA Class
 
  ## 객체지향언어
-   > 프로그램을 구성하는 요소는 객체이며, 이것이 상호작용하도록 프로그래밍
+  > 프로그램을 구성하는 요소는 객체이며, 이것이 상호작용하도록 프로그래밍
    - Java는 객체를 만들기 위해 반드시 Class를 먼저 만들어야함
   ### Class
-   > 객체를 만들기위한 틀
+  > 객체를 만들기위한 틀
    ex. 붕어빵 : 객체, 붕어빵만들어내는 틀 : 클래스
    - 선언
   ```java
@@ -89,3 +89,52 @@
   ```
   
   ### Field
+  > 객체의 속성 (상태)
+   - 예시
+     - 객체 : Car
+     - 속성(field) : 자동차의 이름, 번호
+       (객체별로 속성의 값이 유지된다)
+     - 메서드(Method) : 전진, 후진 
+   - 필드 선언
+  ```java
+  // Car class
+    public class Car {
+       // 타입 필드명
+       String name;
+       int number;
+    }
+  // CarExam Class
+    public class CarExam {
+      // Car라는 객체가 c1, c2 두 개 메모리상에 만들어짐
+      // 각각 name, number라는 속성 가지게 됨
+      Car c1 = new Car();
+      Car c2 = new Car();
+
+      c1.name = "제네시스";
+      c2.name = "아방이";
+    }
+  ```
+
+  ### 메서드
+  > 객체의 행동 (Class가 가지고 있는 기능)
+   - 입력값을 받아 동작한 후 그 결과값을 도출
+   - 입력값 == 매개변수(parameter) == 인자(Argument)
+     - 인자 : 어떤 함수를 호출시에 전달되는 값
+     - 매개변수 : 전달된 인자를 받아들이는 변수
+   - 결과값 == 리턴값
+   - 메서드 형태
+     - void : 리턴값이 없는 경우
+     - 리턴타입 : int, String, 
+  ```java
+    public class MyClass {
+      // public 리턴타입 메소드명(매개변수) { 기능구현 }
+      public String method1(int x) {
+        String result = "hello";
+        System.out.println("매개변수는 " + x);
+
+        return result;
+      }
+    }
+  ```
+   - 메서드 사용
+    > 클래스가 가진 메서드를 사용하기 위해서는 `객체`로 만들어야 사용가능
