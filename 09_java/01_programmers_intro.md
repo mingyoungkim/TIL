@@ -195,7 +195,7 @@
     - 길이
       - python : len(value)
       - java : value.length
-    - 값 자르기
+    - 문자열 자르기
       - python : str1[1:2]
       - java : str1.substring(2)
     

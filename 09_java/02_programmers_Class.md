@@ -46,7 +46,7 @@
   ### String Class
    > java에서 가장 많이 사용되는 문자열을 표현하는 클래스
     - new 연산자 이용하지 않고도 인스턴스 생성가능 (이용해도 됨)
-    - 한번 생성된 Class의 내부의 값은 변하지 않는다 
+    - 한번 생성된 Class의 내부의 값은 변하지 않는다 == 불변 Class
       (다른 class는 아님)
     - String이 가지고 있는 메서드들은 String 값 반환
       - 실행 후, 새로운 String을 만들어서 반환
@@ -138,3 +138,63 @@
   ```
    - 메서드 사용
     > 클래스가 가진 메서드를 사용하기 위해서는 `객체`로 만들어야 사용가능
+  
+  ### String Class Method
+   - 변수.length() : 문자열의 길이
+   - 변수.concat() : 문자열 + 문자열 (결합)
+   - 변수.substring() : 문자열 자르기
+  ![java_StringClass](Java.assets/java_StringClass.png)
+
+  ### 변수의 scope 와 static
+   - 모든 클래스는 인스턴스화 하지 않으면 사용 불가능!
+   - static
+     - class를 정의하고 해당 클래스를 new(인스턴스화) 하지 않았음에도 main 메서드가 실행되는 이유
+     - 즉, static을 사용하면 클래스가 인스턴스화하지 않아도 `static한 메서드나 필드` 사용 가능!
+     - 객체를 생성하지 않아도 사용가능하기 때문에, static한 메서드내에서 static하지 않은 필드는 사용 불가능
+   - static 변수 == class 변수
+       - static한 필드는 인스턴스 생성시에 만들어지지 않고, 값을 저장할 수 있는 공간이 하나임
+       - 즉, 값을 공유함
+   - 인스턴스 변수 : 인스턴스가 생성될 때 만들어지는 변수
+  ```java
+    public class VariableScopeExam {
+      int globalNum = 10; // 인스턴스 변수
+      static int staticNum = 50; // 클래스 변수
+
+      public void scopeTest(int value) {
+        int localNum = 20; // 지역변수
+        System.out.println(globalNum + localNum);
+      }
+
+      public void scopeTest2(int value) {
+        int testNum = 30;
+        System.out.println(localNum + testNum); // localNum 은 범위 밖이여서 사용 불가능
+      }
+
+      public static void main(String[] args) {
+        System.out.println(globalNum); // globalNum 도 사용 불가능
+        System.out.println(staticNum); // static한 메서드 내, static 필드는 사용 가능!!!
+
+        // static 메서드 내, static하지 않은 필드 사용하는 방법
+        // Class화 하여 사용
+        VariableScopeExam v1 = new VariableScopeExam();
+        System.out.println(v1.globalNum);
+        /*
+          클래스 변수는 
+            클래스.클래스변수명 
+          으로 사용하는 것이 바람직
+        */
+        System.out.println(v1.staticNum);
+        System.out.println(VariableScopeExam.staticNum);
+      }
+    }
+  ```
+
+  ### 열거형
+  > java는 열거 타입을 이용해 변수선언 시 변수타입으로 사용
+   - jdk5에서 추가됨
+   - 이전에는 static final 상수를 이용해 열거형태로 사용
+  ```java
+    public class EnumExam {
+      static 
+    }
+  ```
