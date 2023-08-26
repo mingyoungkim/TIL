@@ -168,6 +168,7 @@
       public void scopeTest2(int value) {
         int testNum = 30;
         System.out.println(localNum + testNum); // localNum 은 범위 밖이여서 사용 불가능
+        System.out.println(staticNum); // 가능
       }
 
       public static void main(String[] args) {
@@ -193,8 +194,29 @@
   > java는 열거 타입을 이용해 변수선언 시 변수타입으로 사용
    - jdk5에서 추가됨
    - 이전에는 static final 상수를 이용해 열거형태로 사용
+   - enum 이름 {값1, 값2;}
   ```java
     public class EnumExam {
-      static 
+      public static final String MALE = "MALE";
+      public static final String FEMALE =  "FEMALE"
+
+      public static void main(String [] args) {
+        String gender1;
+        Gender gender2; // 열거형 타입이 됨
+
+        gender1 = EnumExam.MALE;
+        gender1 = EnumExam.FEMALE;
+        gender1 = "boy"; 
+
+        gender2 = Gender.MALE;
+        gender2 = Gender.FEMALE;
+        gender2 = "boy"; // 에러발생!!
+      }
+    }
+    /*열거형
+      특정 값들만 넣고 싶을때 사용 (즉, 상단 boy와 같은 값을 넣고 싶지 않음)
+    */
+    enum Gender {
+      MALE, FEMALE;
     }
   ```
