@@ -99,9 +99,9 @@
   ```java
   // Car class
     public class Car {
-       // 타입 필드명
-       String name;
-       int number;
+      // 타입 필드명
+      String name;
+      int number;
     }
   // CarExam Class
     public class CarExam {
@@ -124,7 +124,7 @@
    - 결과값 == 리턴값
    - 메서드 형태
      - void : 리턴값이 없는 경우
-     - 리턴타입 : int, String, 
+     - 리턴타입 : int, String 등
   ```java
     public class MyClass {
       // public 리턴타입 메소드명(매개변수) { 기능구현 }
@@ -143,7 +143,7 @@
    - 변수.length() : 문자열의 길이
    - 변수.concat() : 문자열 + 문자열 (결합)
    - 변수.substring() : 문자열 자르기
-  ![java_StringClass](Java.assets/java_StringClass.png)
+  ![java_stringClass](Java.assets/java_stringClass.png)
 
   ### 변수의 scope 와 static
    - 모든 클래스는 인스턴스화 하지 않으면 사용 불가능!
