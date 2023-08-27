@@ -51,4 +51,4 @@
      > 다른 패키지의 class를 사용하기 위한 키워드
  ![java_pacakage](Java.assets/java_package.png)
 
-
+ ## 상속
