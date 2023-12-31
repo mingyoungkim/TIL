@@ -6,6 +6,9 @@
   ### Class
   > 객체를 만들기위한 틀
    ex. 붕어빵 : 객체, 붕어빵만들어내는 틀 : 클래스
+   - 특징
+     - 필드와 메서드를 가짐
+     - 캡슐화 : 관련된 내용을 모아서 가지고 있는 것
    - 선언
   ```java
     public class 클래스명 { // 클래스 블록
@@ -31,7 +34,7 @@
   ```java
     public class TypeClass {
       public static void main(String[] args) {
-        // 정수 i라는 기본형 변수에 4 저장
+        // 정수 basic 이라는 기본형 변수에 4 저장
         int basic = 4; 
         // String Class 
         /* str : 메모리에 올라간 instance를 가르키는 변수 (참조하는 변수, 레퍼런스하는 변수)
@@ -143,7 +146,7 @@
    - 변수.length() : 문자열의 길이
    - 변수.concat() : 문자열 + 문자열 (결합)
    - 변수.substring() : 문자열 자르기
-  ![java_stringClass](Java.assets/java_stringClass.png)
+  ![java_stringClass](Java.assets/java_StringClass.png)
 
   ### 변수의 scope 와 static
    - 모든 클래스는 인스턴스화 하지 않으면 사용 불가능!
@@ -198,7 +201,7 @@
   ```java
     public class EnumExam {
       public static final String MALE = "MALE";
-      public static final String FEMALE =  "FEMALE"
+      public static final String FEMALE =  "FEMALE";
 
       public static void main(String [] args) {
         String gender1;
