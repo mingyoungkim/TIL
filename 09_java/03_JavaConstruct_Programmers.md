@@ -52,17 +52,20 @@
  ![java_pacakage](Java.assets/java_package.png)
 
 # 상속
- - public class 클래스명 extends 부모클래스명 {}
+ - `public class 클래스명 extends 부모클래스명 {}`
  - 부모클래스가 가지고 있는 것을 자식이 물려받을 수 있음 (사용가능)
 
  ```java
  // 부모클래스
   public class Car {
+    public Car() {
+      System.out.println("Car == 차")
+    }
     public void run() {
       System.out.println("Car 클래스 상속 완")
     }
   }
- // 자식클래스
+ // 1. 자식클래스 Bus
   public class Bus extends Car {
     /* 확장하였다.
       : 부모가 가지고 있는 메서드 이외에도
@@ -88,6 +91,28 @@
       car.stop(); // 당연히 부모클래스는 자식 클래스 사용 불가!!
     }
   }
+  // 2. 자식클래스 Truck
+    public class Truck extends Car {
+      public Truck() {
+        /* super
+          부모의 기본 생성자를 호출해달라는 뜻
+          -> 만약 부모가 기본 생성자가 아닌 경우, 기재해줘야함.
+        */
+        super(); // 부모 객체를 나타내는 키워드 (자동으로 암시됨)
+        System.out.println("Truck == 트럭");
+      }
+    }
+    public class TruckExam {
+      public static main(String[] args) {
+        Truck truck = new Truck();
+        /* 실행값
+          Car == 차
+          Truck == 트럭
+          => 즉, 객체가 생성될 때 반드시 생성자를 실행학고 생성됨!!!
+            상속받은 자식 클래스 객체를 생상하는 경우, 부모클래스 먼저 실행하고 자식클래스 실행 
+        */
+      }
+    }
  ```
 
  ## 접근제한자
@@ -166,3 +191,49 @@
       }
     }
   ```
+
+  ## 오버라이딩 (Overriding)
+  > 부모클래스가 가지고 있는 메서드와 똑같은 모양의 메서드를 자식클래스가 가지고 있는 것 (메서드를 재정의하는 것)
+  ```java
+    public class Car {
+      public void run() {
+        System.out.println("Car");
+      }
+    }
+    public class Bus extends Car {
+      public void run() {
+        super.run(); // 부모가 가진 run 메서드도 실행시키고 싶은 경우!!
+        System.out.println("Bus");
+      }
+      public void Uturn() {
+        System.out.println("유턴");
+      }
+    }
+    public class BusExam {
+      public static void main(String[] args) {
+        Bus bus = new Bus();
+        bus.run();
+      }
+    }
+  ```
+
+  ## 클래스 형변환
+  ```java
+    public class BusExam2() {
+      public static void main(String[] args) {
+        // 부모타입인 Car로 자식타입인 Bus를 가르킬 수 있음
+        Car car = new Bus();
+        car.run();
+        car.Uturn(); // 에러발생!! 
+        /*
+          부모타입으로 자식을 가르킬 수는 있지만,
+          부모가 가지고 있는 내용만 사용 가능
+          이때, 자식에 선언된 메서드를 사용하고 싶다면... 클래스 형변환
+        */
+        Bus bus = (Bus) car;
+        bus.Uturn();
+      }
+    }
+  ```
+
+
