@@ -1,4 +1,5 @@
 # SPRING INTRODUCTION
+
  ## Start Spring
    - spring.io : 스프링 부트 기반으로 프로젝트 만들어주는 사이트
    - maven/gradle : 필요한 라이브러리를 땡겨오고, 빌드하는 라이프사이클까지 다 관리해주는 툴
@@ -48,6 +49,41 @@
      - cd build/libs
        - `java -jar hello-spring-0.0.1-SNAPSHOT.jar`
 
-
  ## 스프링 웹개발 기초
+   1. 정적 컨텐츠
+   > 서버에서 하는 것 없이 파일을 그대로 웹 브라우저에 내려주는 것
+   ![spring정적컨텐츠](Spring.assets/spring_static.png)
+     - web 브라우저에서 `~/hello-static.html` -> 톰캣 서버가 요청 받음
+     - spring에 넘기면, controller에서 hello-static 관련되어 매핑되어 있는 controller가 있는 지 확인
+     - 못찾는 경우, resources/static에 해당 html 찾음
+     - 있으면 바로 반환
 
+   2. MVC와 템플릿엔진
+   > 서버에서 프로그래밍해서 동적으로 바꿔서 html을 보여주는 것
+    - Model
+     > 비즈니스 로직
+    - View
+     > 화면을 그리는 데에만 집중
+    - Contorller
+     > 비즈니스 로직
+    
+    ![springMVC](Spring.assets/spring_mvc.png)
+     - web browser -> 내장 톰캣서버 -> 스프링
+     - 스프링은 helloController에 매핑된 메서드 찾아서 호출
+     - 리턴할 때, hello-template 이름으로 model(name:mini)
+     - 스프링이 뷰를 찾아주고 템플릿 엔진을 연결시켜주는 viewResolver 동작
+       - templates/hello-template.html을 찾아서 thymeleaf에 처리해달라고 넘김
+     - thymleaf가 렌더링을 해서 변환을 한 html을 반환
+
+   3. API
+   > json 데이터 구조 포멧으로 클라이언트로 데이터 전달하는 방식
+   ![springAPI](Spring.assets/spring_api.png)
+    - web browser -> 내장 톰캣 서버 -> 스프링
+    - 스프링은 helloContoller에 매핑된 hello-api 찾음
+    - @ResponseBody 에 의해 `httpMessageConverter` 동작
+       - http응답에 return값 넘겨줘야 함
+       - 리턴 형태가 문자열인 경우, `StringConverter`가 문자 처리
+       - 리턴 형태가 객체인 경우, 기본 defalut가 json방식으로 데이터를 만들어서 http응답에 반환 (`MappingJackson2HttpMessageConverter`)
+    ✍️ 객체를 json으로 바꿔주는 라이브러리
+       - jackson (spring 기본 탑재)
+       - gson
