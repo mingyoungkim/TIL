@@ -1,0 +1,40 @@
+package hello.hellospring.repository;
+
+import hello.hellospring.domain.Member;
+
+import java.util.*;
+
+public class MemoryMemberRepository implements MemberRepository{
+    private static Map<Long, Member> store = new HashMap<>();
+    private static long sequence = 0L;
+
+    @Override
+    public Member save(Member member) {
+        member.setId(++sequence);
+        store.put(member.getId(), member);
+        return member;
+    }
+
+    @Override
+    public Optional<Member> findById(Long id) {
+        // null이 반환될 가능성이 있으면 optional로 감싸서 반환하면 client에서 처리가능
+        return Optional.ofNullable(store.get(id));
+    }
+
+    @Override
+    public Optional<Member> findByName(String name) {
+        // lamda
+        return store.values().stream() // store를 loof로 돌림
+                .filter(member -> member.getName().equals(name)) // 돌리면서 같은경우만 filter
+                .findAny(); // 하나라도 찾으면 반환하는 함수
+    }
+
+    @Override
+    public List<Member> findAll() {
+        return new ArrayList<>(store.values());
+    }
+
+    public void clearStore() {
+        store.clear();
+    }
+}
