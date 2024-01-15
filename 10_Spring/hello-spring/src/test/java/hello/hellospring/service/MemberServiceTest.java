@@ -59,7 +59,7 @@ class MemberServiceTest {
             fail("예외가 발생해야 합니다.");
         }
         catch (IllegalStateException e) {
-            Assertions.assertThat(e.getMessage()).isEqualTo("이미 존자하는 회원입니다.");
+            Assertions.assertThat(e.getMessage()).isEqualTo("이미 존재하는 회원입니다.");
         }
         */
     }
