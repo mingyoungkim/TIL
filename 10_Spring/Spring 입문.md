@@ -124,6 +124,11 @@
      > JAVA는 기본적으로 db랑 붙기위해 JDBC 드라이버가 꼭 있어야함 (연동역할)
        + db랑 붙을때, 데이터베이스가 제공하는 client가 필요함 (예제로는 h2)
 
+       - 개방-폐쇄 원칙(OCP, Open-Closed Principle)
+         : 확장에는 열려있고, 수정, 변경에는 닫혀있다.
+       - 스프링의 DI (Dependencies Injection)을 사용하면 `기존 코드를 전혀 손대지 않고, 설정만으로 구현 클래스를 변경`할 수 있다.
+         (객체지향의 큰 장점)
+
      2. JdbcTemplate
 
      3. JPA
