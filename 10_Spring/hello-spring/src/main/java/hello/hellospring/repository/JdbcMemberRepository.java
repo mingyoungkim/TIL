@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+// 순수 JDBC
 public class JdbcMemberRepository implements MemberRepository{
 
     // db에 붙기 위해 dataSource 필요

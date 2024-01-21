@@ -5,6 +5,7 @@ import hello.hellospring.repository.MemberRepository;
 import hello.hellospring.repository.MemoryMemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,6 +14,7 @@ import java.util.Optional;
  * spring 컨테이너에 해당 서비스를 등록해서 관리함
  */
 @Service
+@Transactional // jpa를 쓸려면 항상 트랜젝션이 있어야함 (데이터를 저장, 변경할때 transaction이 있어야하니까)
 public class MemberService {
     //private final MemberRepository memberRepository = new MemoryMemberRepository();
     /* Dependancy Injection (DI)
@@ -39,11 +41,22 @@ public class MemberService {
             throw new IllegalStateException("이미 존재하는 회원입니다.");
         });
         */
-        // 메서드 따로 빼서 작성하기
-        validateDuplicateMember(member);
 
-        memberRepository.save(member);
-        return member.getId();
+        // join메서드의 시간 측정하는 로직 -> 공통관심사항
+        long start = System.currentTimeMillis();
+
+        try {
+            // 메서드 따로 빼서 작성하기
+            validateDuplicateMember(member);
+
+            memberRepository.save(member);
+            return member.getId();
+        }
+        finally {
+            long finish = System.currentTimeMillis();
+            long timeMs = finish - start;
+            System.out.println("join AOP == " + timeMs + "ms");
+        }
     }
 
     private void validateDuplicateMember(Member member) {

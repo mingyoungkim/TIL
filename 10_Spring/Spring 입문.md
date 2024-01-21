@@ -88,20 +88,23 @@
        - jackson (spring 기본 탑재)
        - gson
   
-   ## 웹 애플리케이션 
-     ### 
-     ![springWeb](Spring.assets/spring_web.png)
-     - 컨트롤러: 웹 MVC의 컨트롤러 역할
-     - 서비스: 핵심 비즈니스 로직 구현
-     - 리포지토리: 데이터베이스에 접근, 도메인 객체를 DB에 저장하고 관리
-     - 도메인: 비즈니스 도메인 객체
-        예) 회원, 주문, 쿠폰 등등 주로 데이터베이스에 저장하고 관리됨
+ ## 웹 애플리케이션 
+  ![springWeb](Spring.assets/spring_web.png)
+   - 컨트롤러: 웹 MVC의 컨트롤러 역할
+   - 서비스: 핵심 비즈니스 로직 구현
+   - 리포지토리: 데이터베이스에 접근, 도메인 객체를 DB에 저장하고 관리
+   - 도메인: 비즈니스 도메인 객체
+     예) 회원, 주문, 쿠폰 등등 주로 데이터베이스에 저장하고 관리됨
 
     ### 테스트 케이스
      - JUnit이라는 프레임워크로 반복 실행하기 어렵고 여러 테스트를 한번 에 실행하기 어렵다는 단점을 극복
   
-   ## 스프링 빈과 의존관계
-     ### 스프링 빈 등록 방법
+ ## 스프링 빈과 의존관계
+   - 스프링 빈 :스프링 컨테이너에 의해 관리되는 재사용 가능한 소프트웨어 컴포넌트
+   - 스프링 컨테이너가 관리하는 자바 객체를 뜻하며, 하나 이상의 빈(Bean)을 관리
+   - 빈은 인스턴스화된 객체를 의미하며, 스프링 컨테이너에 등록된 객체를 스프링 빈
+
+    ### 스프링 빈 등록 방법
      1. 컴포넌트 스캔과 자동 의존관계 설정
        ex. @Controller, @Service, @Repository ,,,
        - 해당 어노테이션에 @Component가 포함되어 있음
@@ -119,18 +122,37 @@
     ✍️ `@Autowired` 를 통한 DI는 스프링이 관리하는 객체 에서만 동작한다. 
       스프링 빈으로 등록하지 않고 내가 직접 생성한 객체에서는 동작하지 않는다.
 
-   ## 스프링 DB접근 기술
-     1. 순수 JDBC
-     > JAVA는 기본적으로 db랑 붙기위해 JDBC 드라이버가 꼭 있어야함 (연동역할)
-       + db랑 붙을때, 데이터베이스가 제공하는 client가 필요함 (예제로는 h2)
+ ## 스프링 DB접근 기술
+   1. 순수 JDBC
+    > JAVA는 기본적으로 db랑 붙기위해 JDBC 드라이버가 꼭 있어야함 (연동역할)
+    + db랑 붙을때, 데이터베이스가 제공하는 client가 필요함 (예제로는 h2)
 
-       - 개방-폐쇄 원칙(OCP, Open-Closed Principle)
-         : 확장에는 열려있고, 수정, 변경에는 닫혀있다.
-       - 스프링의 DI (Dependencies Injection)을 사용하면 `기존 코드를 전혀 손대지 않고, 설정만으로 구현 클래스를 변경`할 수 있다.
-         (객체지향의 큰 장점)
+     - 개방-폐쇄 원칙(OCP, Open-Closed Principle)
+      : 확장에는 열려있고, 수정, 변경에는 닫혀있다.
+     - 스프링의 DI (Dependencies Injection)을 사용하면 `기존 코드를 전혀 손대지 않고, 설정만으로 구현 클래스를 변경`할 수 있다.
+    (객체지향의 큰 장점)
 
-     2. JdbcTemplate
+   2. JdbcTemplate
+   > Jdbc API에서의 반복적인 코드를 제거 (mybatis와 같은 역할)
 
-     3. JPA
-     > 객체를 바로 db에 쿼리없이 저장 
+   3. JPA
+   > 객체를 바로 db에 쿼리없이 저장 (반복코드 제거 + sql 작성 제거)
+     - hibernate : JPA는 인터페이스 역할이고, hibernate가 구현체
+     - 객체와 ORM(Object Relational Mapping) 기술 : 객체의 Object와 Relational database 테이블을 매핑한다. (어노테이션으로)
 
+   4. 스프링 데이터 JPA
+   > interface만으로 개발 가능하도록 도와줌 (기본적인 CRUD도 제공)
+  ![springJPA](Spring.assets/spring_JPA.png)
+     - `findByName()` , `findByEmail()` 처럼 메서드 이름 만으로 조회 기능 제공
+     - 페이징 기능 자동 제공
+     - 실무에서는 JPA와 스프링 데이터 JPA를 기본으로 사용하고, 복잡한 동적 쿼리는 Querydsl이라는 라이브 러리를 사용
+     - Querydsl을 사용하면 쿼리도 자바 코드로 안전하게 작성할 수 있고, 동적 쿼리도 편리하 게 작성
+
+ ## AOP
+  > Aspect Oriented Programming
+   - 공통 관심 사항(cross-cutting concern) vs 핵심 관심 사항(core concern) 분리
+     - 공통관심사항 : 예) 시간을 측정하는 로직
+     - 핵심관심사항 : 예) 회원가입, 중복체크 등
+   - 시간을 측정하는 로직과 핵심 비즈니스의 로직이 섞여서 유지보수가 어려워서 이를 해결하기 위해 AOP
+   ![springAOP](Spring.assets/sping_AOP.png)
+   
