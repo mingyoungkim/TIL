@@ -39,3 +39,13 @@
    - starter 종속성으로 쉬운 빌드 구성
    - 스프링과 3th parth(외부) 라이브러리 자동 구성
 
+ ## AppConfig
+ > 애플리케이션 전체를 설정하고 구성한다.
+ ![Spring_생성자](Spring.assets/spring_DIP.png)
+   - 애플리케이션의 실제 동작에 필요한 구현 객체를 생성
+   - 객체의 생성과 연결 담당
+   - So, 관심사 분리 완료 (객체를 생성하는 역할 : config / 실행하는 역할 : impl)
+   
+    ### DI (Dependency Injection)
+     > 의존성 주입 (의존성 관계)
+     - 클라이언트인 ServiceImpl 입장에서, 의존관계를 마치 외부에서 주입해주는 것과 같음
