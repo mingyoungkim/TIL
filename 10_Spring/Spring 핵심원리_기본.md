@@ -73,4 +73,17 @@
      - AppConfig 처럼 객체를 생성하고 관리하면서 의존관계를 연결해 주는 것
      - 어샘블러, 오브젝트 팩토리 라고도 부름
 
- 
+ ## Spring Container
+  > `ApplicationContext` : 스프링 컨테이너 (인터페이스)
+   - 스프링 컨테이너는 `@Configuration` 이 붙은 `AppConfig` 를 설정(구성) 정보로 사용
+   - `@Bean` 이 라 적힌 메서드를 모두 호출해서 반환된 객체를 스프링 컨테이너에 등록 : `스프링빈`
+  
+  ![스프링Container1](Spring.assets/springContaier_1.png.png)
+  ![스프링Container2](Spring.assets/springContainer_2.png)
+  ```text
+   1. new AnnotationConfigApplicationContext(AppConfig.class) 으로 AppConfig의 정보를 준다.
+   2. 스프링 컨테이너가 만들어짐
+   3. 스프링 컨테이너 안, 스프링 빈 저장소(key: 빈 이름, value: 빈 객체) 에 파라미터로 넘어온 해당 구성정보를 사용해서 스프링빈 등록
+     (빈 이름은 항상 다른 이름을 부여)
+   4. 스프링 컨테이너는 설정 정보를 참고해서 의존관계를 주입(DI)
+  ```
