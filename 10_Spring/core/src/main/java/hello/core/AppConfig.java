@@ -54,6 +54,9 @@ public class AppConfig {
 public class AppConfig {
     /* @Bean : spring container 에 등록됨 */
     // 기본적으로 메서드 이름으로 등록됨 (name: memberService 등등)
+
+    // @Bean memberService -> new MemoryMemberRepository()
+    // @Bean orderService -> new MemoryMemberRepository()
     @Bean
     public MemberService memberService() {
         return new MemberServiceImpl(memberRepository());

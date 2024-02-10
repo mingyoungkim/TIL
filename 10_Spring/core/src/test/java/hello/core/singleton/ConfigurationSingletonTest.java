@@ -1,2 +1,5 @@
-package hello.core.singleton;public class ConfigurationSingletonTest {
+package hello.core.singleton;
+
+public class ConfigurationSingletonTest {
+    
 }

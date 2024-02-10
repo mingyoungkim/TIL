@@ -15,15 +15,15 @@ class ApplicationContextInfoTest {
     void findAllBean() {
         // Bean으로 정의된 이름을 다 등록
         String[] beanDefinitionNames = ac.getBeanDefinitionNames();
-        // list 같은 배열이 있는경우, iter : for 문 자동완성
+        // list 같은 배열이 있는경우, iter : for 문 자동완성 단축키
         for (String beanDefinitionName : beanDefinitionNames) {
-            // option + command + V : 변수 자동완성
+            // option + command + V : 변수 자동완성 단축키
             Object bean = ac.getBean(beanDefinitionName); // 현재 type 을 지정안해서 object로 꺼내짐
             System.out.println("name = " + beanDefinitionName + " object = " + bean);
         }
     }
 
-    // 드래그한 부분 자동 복붙 : command + D
+    // 드래그한 부분 자동 복붙 단축키 : command + D
     @Test
     @DisplayName("애플리케이션 빈 출력하기")
     void findApplicationBean() {
