@@ -102,7 +102,7 @@
           createApp(App).mount('#app')
           ```
 
-      * App.vue 컴포넌트
+      * App.vue 컴포넌트 : 최상위 컴포넌트
 
         ```vue
         <template>
@@ -143,7 +143,7 @@
 
             ```json
               "scripts": {
-                "serve": "vue-cli-service serve",
+                "serve": "vue-cli-service serve", // 개발서버 실행
                 // build는 production에 올리기 전에 production에 올리기에 최적화 된 파일을 만드는 과정이다.
                 "build": "vue-cli-service build",
                 "lint": "vue-cli-service lint"
