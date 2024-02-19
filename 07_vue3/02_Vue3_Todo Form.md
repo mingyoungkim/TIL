@@ -115,6 +115,10 @@ export default {
 
 ### 03. Event와 ref
 
+* Event : 어떤 행동을 했을 때, 어떤 일이 일어난다.
+  - 대표적인 이벤트 : click 이벤트
+  * `v-on:click=함수명`
+
 * vue.js composition API를 사용하면 일반 변수를 사용하여 template에 나타내고 있는 값은 나중에 재할당 하여도 template에 적용되지 않음 (변수에는 적용됨)
 
 * 따라서 vue.js에서는 변수값을 재할당 하였을 시,
@@ -187,7 +191,7 @@ export default {
 - `.value`를 쓰지 않고 재할당 하려면
 
   - 기본적으로 문자, 숫자는 ref를 사용해야하고
-  - object 나 Array는 `reactive` 사용 가능
+  - object 나 Array는 `reactive` 사용 가능 (문자, 숫자는 사용 못함)
 
   ```vue
   <template>
@@ -319,7 +323,7 @@ export default {
 
   ```vue
   <template>
-    <!-- oninput Event => user가 input field에 뭔가를 쓸 때 실행 -->
+    <!-- oninput Event => user가 input field에 뭔가를 쓸 때 실행 (키보드로 쓸때마다 실행됨) -->
     <input
      type="text"
      :value="name"
@@ -371,7 +375,7 @@ export default {
 
   
 
-  - `v-model` 로 양방향 바인딩
+  - `v-model` 로 양방향 바인딩 : vue.js 자체적으로 value바인딩도 해주고, template에서 값이 변경되었을때 data 반영되도록 해줌
 
   ```vue
   <template>
