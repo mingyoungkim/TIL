@@ -1,74 +1,86 @@
 <template>
   <!---------- 2. To do List 만들기 ---------->
-  
-  <h2>To-do List</h2>
-  <form>
-    <input 
-      type="text"
-      v-model="name"
-    >
-    <button 
-      class="btn btn-primary" 
-      @click="onSubmit"
-    >
-    Click
-    </button>
-  </form>
 
+  <div class="container">
+    <h2>To-do List</h2>
+    <!-- form 태그에 submit 걸면, submit 하면 화면 reload 됨 -->
+    <!-- 이를 prevent 하면 됨 -->
+    <form class="d-flex" @submit.prevent="onSubmit">
+      <div class="flex-grow-1 mr-2">
+        <input 
+          class="form-control"
+          type="text"
+          v-model="todo"
+          placeholder="Type new To-do"
+        >
+      </div>
+      <div>
+        <button 
+          class="btn btn-primary" 
+          type="submit"
+        >
+        Add
+        </button>
+      </div>  
+    </form>
 
+    <!-- {{ todos }} -->
+
+    <!--
+    <div class="card my-2">
+      <div class="card-body p-2">
+        {{ todos[0].subject }}
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body p-2">
+        {{ todos[1].subject }}
+      </div>
+    </div>
+  -->
+
+  <!-- v-for 로 카드 여러개 만들기 -->
+  <!-- v-for 사용시, element 각각의 노드를 식별하기 위해 key binding 사용 (필수!) -->
+  <div
+    v-for="todo in todos"
+    :key="todo.id"
+    class="card mt-2"
+  >
+    <div class="card-body p-2">
+      {{ todo.subject }}
+    </div>
+  </div>
+
+  </div>
 
 </template>
 
 
 <script>
-// vue 패키지에서 ref 를 import
 import { ref } from 'vue';
 
 export default {
   setup() {
-    // const name = 'Mini World';
-      // 1. const 는 변경 불가 => let으로 사용
-    // let name = 'Mini World';
-      // 2. let으로 바꿔서 updateName 해도 변수만 변경되지, 탬플릿에서 바뀐 변수가 show 되지는 않음 => ref로 변경
-    const name = ref('Mini World');
-    const type = ref('text');
-    const nameClass = ref('name');
-    const welcome = 'welcome to';
+    const todo = ref('');
+    const todos = ref([
+      {id:1, subject: '휴대폰사기'},
+      {id:2, subject: '장보기'}
+    ]);
 
-    // 함수 만들기
-    const greeting = (welcom) => {
-      return 'Hello, ' + welcom;
-    }
-
-    const greet = greeting(welcome);
-
-    // 단방향 바인딩
-    const updateName = () => {
-      // name = 'MiniGom';
-        // ref 사용하는 경우, 선언된 변수명.value
-      name.value = 'MiniGom';
-    };
-
-    // 양방향 바인딩
     const onSubmit = () => {
+      // form의 submit 했을 때, reload하는 event prevent 해줌
+      // vue 에서는 submit.prevent 하는 것을 권장
+      // e.preventDefault();
+      todos.value.push({
+        id: Date.now(),
+        subject: todo.value
+      });
     };
 
-    // onInput 이벤트에서 event를 받아올 수 있음 (이벤트에 대한 정보들 담고 있음)
-    const updateInputVal = (e) => {
-      console.log(e.target.value);
-      name.value = e.target.value;
-    };
-
-    // object return (template에서 접근할 수 있도록)
     return {
-      name,
-      greeting,
-      greet,
-      updateName,
-      type,
-      nameClass,
+      todo,
+      todos,
       onSubmit,
-      updateInputVal
     };
   }  
 }
