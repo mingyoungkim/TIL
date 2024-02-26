@@ -1,19 +1,42 @@
 <template>
-  <!---------- 2. To do List 만들기 ---------->
+  <!---------- 1. To do 추가 Form ---------->
+  <!-- vue3 에서는 큰 빈 div 태그 생성 필요 없음 -->
+
+  <!-- <div class="name"> -->
+  <div v-bind:class="nameClass">
+
+      <!-- 함수이기 때문에 `()` 필요 -->
+    <!-- {{ greeting('welcome to') }} -->
+    {{ greet }}
+      <!-- template에서는 name.value로 접근 안해도 됨 -->
+    {{ name }}
+  </div>
+
+  <!-- 단방향 바인딩 예시 -->
+    <!-- input의 원래 있는 속성인 value에 name을 bind시켜주기 -->
+    <!-- v-bind:속성 => 모든 속성 bind 가능 -->
+  <!-- <input v-bind:type="type" v-bind:value="name"> -->
+
+    <!-- v-bind 약어 => :속성 -->
+  <!-- 양방향 바인딩 예시 1 : event 사용 -->
+  <input 
+    :type="type" 
+    :value="name"
+    @input="updateInputVal"
+  >
+
+  <!-- 양방향 바인딩 예시 2 : v-model 사용 -->
+  <input type="text" v-model="name">
+
+  <!-- <button class="btn btn-primary" v-on:click="updateName">Click</button> -->
   
-  <h2>To-do List</h2>
-  <form>
-    <input 
-      type="text"
-      v-model="name"
-    >
-    <button 
-      class="btn btn-primary" 
-      @click="onSubmit"
-    >
+    <!-- v-on 약어 => @click -->
+  <button 
+    class="btn btn-primary" 
+    @click="onSubmit"
+  >
     Click
-    </button>
-  </form>
+  </button>
 
 
 
