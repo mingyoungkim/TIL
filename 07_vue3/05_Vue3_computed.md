@@ -67,5 +67,4 @@ export default {
 
 
 
-### 02. SearchBar 추가하기
 
