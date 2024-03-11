@@ -14,7 +14,7 @@
         <input 
           type="checkbox" 
           class="form-check-input" 
-          :value="todo.completed"
+          :checked="todo.completed"
           @change="toggleTodo(idx)"
         >
 
@@ -91,3 +91,4 @@ export default {
   }
 }
 </script>
+
