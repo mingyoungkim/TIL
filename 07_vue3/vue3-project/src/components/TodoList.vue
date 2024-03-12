@@ -84,9 +84,14 @@ export default {
       emit('delete-todo', index);
     };
 
+    const todoListtyle = {
+      
+    };
+
     return {
       toggleTodo,
       deleteTodo,
+      todoListtyle,
     }
   }
 }

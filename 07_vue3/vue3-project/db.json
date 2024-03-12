@@ -4,6 +4,31 @@
       "subject": "인강듣기",
       "completed": true,
       "id": 1
+    },
+    {
+      "subject": "운동하기",
+      "completed": false,
+      "id": 2
+    },
+    {
+      "subject": "설거지하기",
+      "completed": false,
+      "id": 3
+    },
+    {
+      "subject": "방 청소하기",
+      "completed": false,
+      "id": 4
+    },
+    {
+      "subject": "보고서작성하기",
+      "completed": false,
+      "id": 5
+    },
+    {
+      "subject": "몽이사진보기",
+      "completed": false,
+      "id": 6
     }
   ]
 }

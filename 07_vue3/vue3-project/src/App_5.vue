@@ -1,5 +1,5 @@
 <template>
-  <!---------- 7. Watch ---------->
+  <!---------- 5. Json Server + async/await ---------->
 
   <div class="container">
     <h2>To-do List</h2>
@@ -22,32 +22,7 @@
       검색된 Todo가 없습니다.
     </div>
 
-    <TodoList 
-      :todoList="filterTodos" 
-      @toggle-todo="toggleTodo" 
-      @delete-todo="deleteTodo" 
-    />
-
-    <nav aria-label="Page navigation example">
-      <ul class="pagination">
-        <li v-if="curPage !== 1" class="page-item">
-          <a style="cursor: pointer;" class="page-link" href="#" @click="getTodos(curPage-1)">Previous</a>
-        </li>
-
-        <li 
-          class="page-item" 
-          v-for="page in pages" 
-          :key="page" 
-          :class="curPage === page ? 'active' : ''"
-        >
-          <a class="page-link" href="#" @click="getTodos(page)">{{ page }}</a>
-        </li>
-        
-        <li class="page-item" v-if="curPage !== pages">
-          <a style="cursor: pointer;" class="page-link" href="#" @click="getTodos(curPage+1)">Next</a>
-        </li>
-      </ul>
-    </nav>
+    <TodoList :todoList="filterTodos" @toggle-todo="toggleTodo" @delete-todo="deleteTodo" />
 
   </div>
 
@@ -55,7 +30,7 @@
 
 
 <script>
-import { ref, computed, watch } from 'vue';
+import { ref, computed } from 'vue';
 import TodoSimpleForm from './components/TodoSimpleForm.vue';
 import TodoList from './components/TodoList.vue';
 import axios from 'axios';
@@ -69,19 +44,6 @@ export default {
     const todos = ref([]);
     const searchText = ref('');
     const error = ref('');
-    const totalTodos = ref(0); // 총 데이터 갯수
-    const todoLimit = 5; // 한 페이지 당 보여줄 데이터 갯수
-    const curPage = ref(1); // 현재페이지
-    
-    // current page 가 변경될때 실행하기
-    // watch 는 현재 값, 그 전값을 인자로 받음
-    watch(curPage, (curPage, prev) => {
-      console.log(curPage, prev);
-    });
-
-    const pages = computed(() => {
-      return Math.ceil(totalTodos.value/todoLimit);
-    });
 
     const filterTodos = computed(() => {
       if (searchText.value) {
@@ -92,12 +54,12 @@ export default {
       return todos.value;
     });
 
-    const getTodos = async(page = curPage.value ) => {
-      curPage.value = page;
+    const getTodos = async() => {
       try {
-        const res = await axios.get(`http://localhost:3000/todos?_page=${page}&_limit=${todoLimit}`);
-        console.log(res.headers['x-total-count']);
-        totalTodos.value = res.headers['x-total-count'];
+        // 모든 todos 데이터 가져오기
+        const res = await axios.get('http://localhost:3000/todos');
+        console.log(res);
+        // get 해온 res.data가 배열이므로 '=' (push 아님)
         todos.value = res.data;
       }
       catch(err) {
@@ -107,9 +69,30 @@ export default {
 
     getTodos();
 
+    /*
+    const addTodo = (todo) => {
+      error.value = '';
+      // 데이터베이스 todo를 저장
+      axios.post('http://localhost:3000/todos', {
+        // json server를 사용하면 id를 보내지 않아도 db에서 저절로 추가해줌 (mySql 등 이하동문)
+        subject: todo.subject,
+        completed: todo.completed
+      }).then(res => { 
+        console.log(res);
+        todos.value.push(todo) // 응답 온 후 성공적인 경우 실행
+      }).catch(err => {
+        console.log(err); // 응답 온 후 실패한 경우 실행
+        error.value = 'Something went worg:('
+      }); 
+    };
+    */
+
+    ////////// async/await 로 구현 //////////
     const addTodo = async(todo) => {
       error.value = '';
+      // try/catch => .then()/.catch() 역할을 함
       try {
+        // await : 해당 axios 결과를 기다린다.
         const res = await axios.post('http://localhost:3000/todos', {
           subject: todo.subject,
           completed: todo.completed
@@ -155,9 +138,6 @@ export default {
       filterTodos,
       error,
       getTodos,
-      pages,
-      curPage,
-      totalTodos,
     };
   }  
 }
