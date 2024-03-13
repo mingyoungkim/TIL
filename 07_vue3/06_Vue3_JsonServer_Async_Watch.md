@@ -37,6 +37,15 @@
 * Pagination
   - 예시 : GET /posts?_page=1&_per_page=25
 
+* Filter
+  - 예시 : GET /posts?title_like=searchText
+  (empty string 인 경우, filter없이 다 가져옴)
+
+* Sort & Order
+  - 예시
+    - sort => GET /posts?_sort=id,-views
+    - order => GET /posts?_sort=id&_order=asc
+
 ## Watch
 
   1. watchEffect
@@ -70,6 +79,7 @@
     * watch 는 현재 값, 그 전값을 인자로 받음
 
     - 방법
+
       - 한 개의 소스 지켜봄
 
       ```vue
@@ -120,3 +130,12 @@
         }
       </script>
       ```
+
+## setTimeout
+
+> 요청을 보내는 대신에 약간의 delay를 줘서 요청을 보내지 않고 기다렸다가, 설정된 시간 후 요청 보냄
+  (대기하는 도중, 새 요청이 생긴경우 이전 요청은 삭제시키고 새로운 요청을 대기) => `clearTimeout`
+
+```js
+  setTimeout(()=> {함수}, 설정할 시간);
+```
