@@ -23,6 +23,7 @@
 * axios.post(request 보낼 url, 보낼 data)
 * axios.get(request 보낼 url)
 * axios.patch(request 보낼 url, 수정할 data)
+* axios.put(request 보낼 url, 수정할 data)
 
 * PUT : 데이터 전체 수정 / PATCH : 부분적 변경
 

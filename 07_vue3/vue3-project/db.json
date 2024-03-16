@@ -16,13 +16,13 @@
       "id": 3
     },
     {
-      "subject": "방 청소하기",
-      "completed": false,
+      "subject": "방 청소하기!",
+      "completed": true,
       "id": 4
     },
     {
       "subject": "보고서작성하기",
-      "completed": false,
+      "completed": true,
       "id": 5
     },
     {

@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 
 import Home from '@/views/Home.vue';
 import Todos from '@/views/todos/Index.vue';
+import Todo from '@/views/todos/Todo.vue';
 
 const router = createRouter({
   history: createWebHistory(),
@@ -16,6 +17,11 @@ const router = createRouter({
       path: '/todos',
       name: 'Todos',
       component: Todos
+    },
+    {
+      path: '/todos/:id', // 동적 router url path (':')
+      name: 'Todo',
+      component: Todo
     }
   ]
 });

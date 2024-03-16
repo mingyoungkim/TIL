@@ -124,13 +124,16 @@ export default {
       }
     };
 
-    const toggleTodo = async(idx) => {
+    // 개선 : 확실한 이벤트 타깃의 check true/false 받기
+    const toggleTodo = async(idx, checked) => {
       const id = todos.value[idx].id;
       try {
         await axios.patch('http://localhost:3000/todos/'+id, {
-          completed: !todos.value[idx].completed
+          // completed: !todos.value[idx].completed
+          completed: checked
         });
-        todos.value[idx].completed = !todos.value[idx].completed;
+        // todos.value[idx].completed = !todos.value[idx].completed;
+        todos.value[idx].completed = checked;
       }
       catch(err) {
         console.log(err);
