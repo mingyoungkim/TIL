@@ -1,5 +1,6 @@
 <!-- vue 라고 치면 vue section 자동 완성 -->
 <template>
+  <!-- 1. porps & emit -->
   <div
     v-for="(todo, idx) in todoList"
     :key="todo.id"

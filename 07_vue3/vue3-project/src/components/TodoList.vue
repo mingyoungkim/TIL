@@ -1,4 +1,5 @@
 <template>
+  <!-- 2. Router & 이벤트 버블링 -->
   <div
     v-for="(todo, idx) in todoList"
     :key="todo.id"

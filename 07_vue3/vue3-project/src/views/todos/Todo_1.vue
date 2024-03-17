@@ -1,5 +1,5 @@
 <template>
-  <!-- 2. Life Cycle & 메모리 누수 관리 -->
+  <!-- 1. Router & Toast -->
   <h1>Todo Page</h1>
   <div v-if="loading">Loding...</div>
   
@@ -32,6 +32,7 @@
       </div>
     </div>
     
+    <!-- todo 가 변경된 경우만 활성화 -->
     <button 
       type="submit" 
       class="btn btn-primary"
@@ -57,12 +58,11 @@
 </template>
 
 <script>
-import { ref, computed, onUnmounted } from 'vue';
+import { ref, computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import axios from 'axios';
 import _ from 'lodash';
 import Toast from '@/components/Toast.vue';
-import { useToast } from '@/composables/toast';
 
 export default {
   components: {
@@ -71,50 +71,28 @@ export default {
   setup() {
     const route = useRoute();
     const router = useRouter();
+    // console.log(route.params);
     const todoId = route.params.id;
-    const originTodo = ref(''); 
+    const originTodo = ref(''); // todo 원래 값
     const todo = ref('');
     const loading = ref(true);
-    
-    /********** 반복되는 Toast 에 대한 로직 => composables 사용하여 해당 로직 따로 빼기 **********/
-    // const showToast = ref(false); 
-    // const toastMsg = ref('');
-    // const toastAlertType = ref('');
-    // const timeout = ref('');
-    // const triggerToast = (msg, type='succsess') => {
-    //   showToast.value = true;
-    //   toastMsg.value = msg;
-    //   toastAlertType.value = type;
-    //   /* setTimeout
-    //     setTimeout 은 메모리에 올라감
-    //     so, 해당 컴포넌트가 페이지이동을 하여 unMounted 되어도 setTimeout 이 메모리에 올라가 있음
-    //     => 관리 해줘야함
-    //     => setTimeout 결과 값을 timeout 변수에 넣기
-    //   */
-    //   timeout.value = setTimeout(() => {
-    //     showToast.value = false;
-    //     toastAlertType.value = '';
-    //     toastMsg.value = '';
-    //   }, 3000);
-    // };
-    const {
-      showToast,
-      toastMsg,
-      toastAlertType,
-      triggerToast,
-    } = useToast();
-
-    onUnmounted(() => {
-      // 해당 컴포넌트가 unmount 되면서 timeout value 초기화
-      clearTimeout(timeout.value);
-    });
+    const showToast = ref(false); // todo update 후, 성공적으로 업데이트 되었다는 toast alert 표시를 위한 변수
+    const toastMsg = ref('');
+    const toastAlertType = ref('');
     
     const getTodo = async() => {
       try {
         const res = await axios.get('http://localhost:3000/todos/'+todoId);
+        /* 
+          originTodo, todo 둘 다 같은 주소값을 가지게 되면 하나가 바뀌면 둘 다 변경됨
+          => spread operator를 사용
+        */
+        // originTodo.value = res.data;
+        // todo.value = res.data;
         originTodo.value = { ...res.data };
         todo.value = { ...res.data };
         loading.value = false;
+        // console.log(todo.value.completed);
       }
       catch(err) {
         triggerToast('Something went Wrong (' + err.message + ')', 'danger');
@@ -146,10 +124,20 @@ export default {
     };
 
     const isTodoUpdated = computed(() => {
-      return _.isEqual(todo.value, originTodo.value); 
+      return _.isEqual(todo.value, originTodo.value); // true OR false
     });
 
-    
+    // type 아무것도 안받으면 기본갑 : succuss
+    const triggerToast = (msg, type='succsess') => {
+      showToast.value = true;
+      toastMsg.value = msg;
+      toastAlertType.value = type;
+      setTimeout(() => {
+        showToast.value = false;
+        toastAlertType.value = '';
+        toastMsg.value = '';
+      }, 3000);
+    };
 
     getTodo();
 

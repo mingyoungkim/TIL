@@ -47,8 +47,13 @@
         </li>
       </ul>
     </nav>
-
   </div>
+  
+  <Toast 
+    v-if="showToast" 
+    :message="toastMsg"
+    :msgType="toastAlertType"
+  />
 
 </template>
 
@@ -59,11 +64,14 @@ import { ref, computed, watch } from 'vue';
 import TodoSimpleForm from '@/components/TodoSimpleForm.vue';
 import TodoList from '@/components/TodoList.vue';
 import axios from 'axios';
+import Toast from '@/components/Toast.vue';
+import { useToast } from '@/composables/toast'; // js 는 생략 가능
 
 export default {
   components: {
     TodoSimpleForm,
     TodoList,
+    Toast
   },
   setup() {
     const todos = ref([]);
@@ -73,7 +81,32 @@ export default {
     const todoLimit = 5; // 한 페이지 당 보여줄 데이터 갯수
     const curPage = ref(1); // 현재페이지
     let timeout = null; // search 할때, 이전 요청 취소 시키기 위한 변수
-    
+
+    /* 반복되는 Toast 에 대한 로직 => composables 사용하여 해당 로직 따로 빼기
+    // Toast 추가
+    const showToast = ref(false); 
+    const toastMsg = ref('');
+    const toastAlertType = ref('');
+    const toastTimeout = ref('');
+    const triggerToast = (msg, type='succsess') => {
+      showToast.value = true;
+      toastMsg.value = msg;
+      toastAlertType.value = type;
+      toastTimeout.value = setTimeout(() => {
+        showToast.value = false;
+        toastAlertType.value = '';
+        toastMsg.value = '';
+      }, 3000);
+    };
+    */
+   const {
+    // composables toast.js 에서 return 하는 애들 받아줘야함
+    showToast,
+    toastMsg,
+    toastAlertType,
+    triggerToast,
+   } = useToast(); 
+
     watch(curPage, (curPage, prev) => {
       console.log(curPage, prev);
     });
@@ -88,7 +121,6 @@ export default {
       timeout = setTimeout(() => {
         getTodos(1);
       }, 2000);
-      
     });
 
     const pages = computed(() => {
@@ -105,6 +137,7 @@ export default {
       }
       catch(err) {
         console.log(err);
+        triggerToast('Something went Wrong (' + err.message + ')', 'danger');
       }
     };
 
@@ -121,6 +154,7 @@ export default {
       }
       catch(err) {
         error.value = 'Something went worg:('
+        triggerToast('Something went Wrong (' + err.message + ')', 'danger');
       }
     };
 
@@ -137,6 +171,7 @@ export default {
       }
       catch(err) {
         console.log(err);
+        triggerToast('Something went Wrong (' + err.message + ')', 'danger');
       }
     };
 
@@ -149,7 +184,6 @@ export default {
       catch(err) {
         console.log(err);
       }
-      
     };
 
     return {
@@ -163,7 +197,10 @@ export default {
       pages,
       curPage,
       totalTodos,
-      searchTodo
+      searchTodo,
+      showToast,
+      toastMsg,
+      toastAlertType,
     };
   }  
 }
