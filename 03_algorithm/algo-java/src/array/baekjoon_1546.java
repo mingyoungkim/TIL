@@ -1,35 +1,49 @@
 package array;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 /**
- * 백준_11720번
- * Title : 숫자의 합 구하기
+ * 백준_1546번
+ * Title : 평균 구하기
  */
 
-public class baekjoon_11720 {
+public class baekjoon_1546 {
     public static void main(String[] args) {
-        // 1. 숫자갯수 : 100 일때, 100자리수가 나오고 해당 수를 나눠야하니까 int/long 으로는 못받음
-        // 2. 그럼 String 으로 받아서 하나씩 배열로 나눠서 담기 -> toCharArray 함수 사용!
-        // 3. 하나씩 나눈 String 을 int 형으로 형변환 -> 아스키코드 참고
-        // 4. 자릿수 나누기 (나눈 몫을 다 더하기)
-
-    /* 아스키코드
-       문자와 숫자 아스키코드 값 차이 : 48
-       ex. 문자'1' = 아스키코드값49 -> 문자 '1' 을 숫자 1로 변환하려면,,, '1'-48 ('1'-'0')
-     */
-
         Scanner sc = new Scanner(System.in);
-        int cnt = sc.nextInt();
-        String numbers = sc.next();
-        int result = 0;
-        char[] numList = numbers.toCharArray();
 
-        for (int i = 0; i < cnt; i++) {
-            result += numList[i] - '0';
-//        result += numList[i] - 48;
-//        result += Integer.parseInt(String.valueOf(numList[i]));
+        double result;
+        double maxScore;
+        double sumScore = 0;
+        int testCnt = sc.nextInt();
+        int[] scores = new int[testCnt];
+        double[] newScores = new double[testCnt];
+
+        for (var i=0; i<testCnt; i++) {
+            scores[i] = sc.nextInt();
         }
+
+        Arrays.sort(scores);
+        maxScore = scores[testCnt-1];
+
+        /*
+        for (var i=0; i<testCnt; i++) {
+            newScores[i] = (scores[i]/maxScore) * 100.0;
+            System.out.println("1 + " + scores[i] + "----" + maxScore);
+            System.out.println("scores==== " + scores[i]/maxScore);
+            sumScore += newScores[i];
+        }
+        result = sumScore / testCnt;
+        */
+
+        // Simple Solution
+        for (var i=0; i<testCnt; i++) {
+            sumScore += scores[i];
+        }
+
+        result = (sumScore * 100.0) / maxScore / testCnt;
+
+        // 소수점 계산은 곱하기나 나누기할 때, 자연수로 안하고 ".0" 으로 계산하면 double 형태로 소수점 표시됨
         System.out.println(result);
     }
 }
