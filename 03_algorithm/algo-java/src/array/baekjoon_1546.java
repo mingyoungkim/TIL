@@ -13,12 +13,13 @@ public class baekjoon_1546 {
         Scanner sc = new Scanner(System.in);
 
         double result;
-        double maxScore;
+        double maxScore = 0;
         double sumScore = 0;
         int testCnt = sc.nextInt();
-        int[] scores = new int[testCnt];
-        double[] newScores = new double[testCnt];
+//        int[] scores = new int[testCnt];
+//        double[] newScores = new double[testCnt];
 
+        /*
         for (var i=0; i<testCnt; i++) {
             scores[i] = sc.nextInt();
         }
@@ -26,7 +27,7 @@ public class baekjoon_1546 {
         Arrays.sort(scores);
         maxScore = scores[testCnt-1];
 
-        /*
+
         for (var i=0; i<testCnt; i++) {
             newScores[i] = (scores[i]/maxScore) * 100.0;
             System.out.println("1 + " + scores[i] + "----" + maxScore);
@@ -38,7 +39,9 @@ public class baekjoon_1546 {
 
         // Simple Solution
         for (var i=0; i<testCnt; i++) {
-            sumScore += scores[i];
+            double score = sc.nextInt();
+            if (score > maxScore) maxScore = score;
+            sumScore += score;
         }
 
         result = (sumScore * 100.0) / maxScore / testCnt;
